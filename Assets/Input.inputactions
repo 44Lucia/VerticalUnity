@@ -1,0 +1,22 @@
+{
+    "name": "Input",
+    "maps": [
+        {
+            "name": "Character",
+            "id": "740ab939-b8fb-472b-8c51-90a2c8321413",
+            "actions": [
+                {
+                    "name": "Move",
+                    "type": "Value",
+                    "id": "314a9613-5cac-4eb5-b12c-791c4dfd84d5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": []
+        }
+    ],
+    "controlSchemes": []
+}
