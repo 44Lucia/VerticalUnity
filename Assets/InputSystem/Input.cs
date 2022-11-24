@@ -35,6 +35,15 @@ public partial class @Input : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Attack"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""d767fa22-078d-4266-903b-a1dfd512d101"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -92,6 +101,61 @@ public partial class @Input : IInputActionCollection2, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Keyboard"",
+                    ""id"": ""c3063acc-bd7d-4be4-9f18-c19da6d6fade"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""11af864c-8305-4b76-818f-d4eeba909cf6"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""80ef5c5c-c36d-49d3-ac44-54b334c5455f"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""b9013424-f316-4efc-9590-0d79f821c669"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""5c58fb47-ae19-4104-bb70-14fa6402f48f"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -101,6 +165,7 @@ public partial class @Input : IInputActionCollection2, IDisposable
         // Character
         m_Character = asset.FindActionMap("Character", throwIfNotFound: true);
         m_Character_Move = m_Character.FindAction("Move", throwIfNotFound: true);
+        m_Character_Attack = m_Character.FindAction("Attack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -161,11 +226,13 @@ public partial class @Input : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Character;
     private ICharacterActions m_CharacterActionsCallbackInterface;
     private readonly InputAction m_Character_Move;
+    private readonly InputAction m_Character_Attack;
     public struct CharacterActions
     {
         private @Input m_Wrapper;
         public CharacterActions(@Input wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Character_Move;
+        public InputAction @Attack => m_Wrapper.m_Character_Attack;
         public InputActionMap Get() { return m_Wrapper.m_Character; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -178,6 +245,9 @@ public partial class @Input : IInputActionCollection2, IDisposable
                 @Move.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnMove;
                 @Move.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnMove;
                 @Move.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnMove;
+                @Attack.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnAttack;
+                @Attack.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnAttack;
+                @Attack.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnAttack;
             }
             m_Wrapper.m_CharacterActionsCallbackInterface = instance;
             if (instance != null)
@@ -185,6 +255,9 @@ public partial class @Input : IInputActionCollection2, IDisposable
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
+                @Attack.started += instance.OnAttack;
+                @Attack.performed += instance.OnAttack;
+                @Attack.canceled += instance.OnAttack;
             }
         }
     }
@@ -192,5 +265,6 @@ public partial class @Input : IInputActionCollection2, IDisposable
     public interface ICharacterActions
     {
         void OnMove(InputAction.CallbackContext context);
+        void OnAttack(InputAction.CallbackContext context);
     }
 }

@@ -41,27 +41,20 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        //Movement
+        Move();
+
+        player.Move(finalVelocity * Time.deltaTime);
+
+    }
+
+    private void Move()
+    {
         //GetAxis: calcular velocidad de X y Z
         direction = new Vector3(input.GetMovementButtonPressed().x, direction.y, input.GetMovementButtonPressed().y);
         direction.y = -1f;
         direction.Normalize();
 
-        //Movement
-        Move();
-
-        if (player.isGrounded)
-        {
-        }
-        else
-        {
-            finalVelocity.y += direction.y * gravity * Time.deltaTime;
-        }
-
-        player.Move(finalVelocity * Time.deltaTime);
-    }
-
-    private void Move()
-    {
         //Acceleration
         if (isMoving() && speed < maxSpeed) { speed += 6 * Time.deltaTime; }
         else if (!isMoving() && speed > 0f) { speed = 1f; }
@@ -72,10 +65,7 @@ public class PlayerController : MonoBehaviour
         finalVelocity.z = direction.z * speed;
 
         //Animaciónes
-        if (isMoving())
-        {
-            isWalking = true;
-        }
+        if (isMoving()){ isWalking = true; }
         else { isWalking = false; }
     }
 
