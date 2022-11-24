@@ -1,23 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class AIOtakuController : MonoBehaviour
 {
+    private StatesOtaku currenState;
+
     private NavMeshAgent navMeshAgent;
     private float startWaitTime = 4;
     private float timeToRotate = 2;
-    private float speedWalk = 6;
-    private float speedRun = 9;
+    private float speedWalk = 3;
+    private float speedRun = 6;
 
-    private float viewRadius = 15;
+    private float viewRadius = 6;
     private float viewAngle = 90;
-    private LayerMask playerMask;
-    private LayerMask obstacleMask;
-    private float meshResolution = 1f;
-    private int edgeIteration = 4;
-    private float edgeDistance = 0.5f;
+    [SerializeField] private LayerMask playerMask;
+    [SerializeField] private LayerMask obstacleMask;
 
     [SerializeField] private Transform[] waypoints;
     private int m_CurrentWaypointIndex;
@@ -29,51 +26,61 @@ public class AIOtakuController : MonoBehaviour
     private float m_TimeToRotate;
     private bool m_PlayerInRange;
     private bool m_PlayerNear;
-    [SerializeField]private bool m_IsPatrol;
     private bool m_CaughtPlayer;
 
-    // Start is called before the first frame update
+    private void Awake()
+    {
+        navMeshAgent = GetComponent<NavMeshAgent>();
+        currenState = StatesOtaku.PATROL;
+    }
+
     void Start()
     {
         m_playerPositon = Vector3.zero;
-        m_IsPatrol = true;
         m_CaughtPlayer = false;
         m_PlayerInRange = false;
         m_WaitTime = startWaitTime;
         m_TimeToRotate = timeToRotate;
 
+        playerMask = LayerMask.GetMask("Player");
+        obstacleMask = LayerMask.GetMask("Obstacles");
+
         m_CurrentWaypointIndex = 0;
-        navMeshAgent = GetComponent<NavMeshAgent>();
 
         navMeshAgent.isStopped = false;
         navMeshAgent.speed = speedWalk;
         navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
     }
 
-    // Update is called once per frame
     void Update()
     {
         EnviromentView();
 
-        if (!m_IsPatrol) {
-            Chasing();
-        }
-        else {
-            Patroling();
+        switch (currenState) 
+        {
+            case StatesOtaku.PATROL:
+                Patroling();
+                break;
+            case StatesOtaku.CHASE:
+                Chasing();
+                break;
+            case StatesOtaku.ATTACK:
+                Attacking();
+                break;
+            case StatesOtaku.DEATH:
+                Dying();
+                break;
         }
     }
 
     private void Patroling() 
     {
-        if (m_PlayerNear)
-        {
-            if (m_TimeToRotate <= 0)
-            {
+        if (m_PlayerNear){
+            if (m_TimeToRotate <= 0){
                 Move(speedWalk);
                 LookingPlayer(playerLastPosition);
             }
-            else
-            {
+            else{
                 Stop();
                 m_TimeToRotate -= Time.deltaTime;
             }
@@ -107,7 +114,7 @@ public class AIOtakuController : MonoBehaviour
         }
         if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance){
             if (m_WaitTime <= 0 && !m_CaughtPlayer && Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position) >= 6f) {
-                m_IsPatrol = true;
+                currenState = StatesOtaku.PATROL;
                 m_PlayerNear = false;
                 Move(speedWalk);
                 m_TimeToRotate = timeToRotate;
@@ -176,7 +183,7 @@ public class AIOtakuController : MonoBehaviour
                 float dstToPlayer = Vector3.Distance(transform.position, player.position);
                 if (!Physics.Raycast(transform.position, dirToPlayer, dstToPlayer, obstacleMask)){
                     m_PlayerInRange = true;
-                    m_IsPatrol = false;
+                    currenState = StatesOtaku.CHASE;
                 }
                 else{
                     m_PlayerInRange = false;
@@ -185,10 +192,19 @@ public class AIOtakuController : MonoBehaviour
             if (Vector3.Distance(transform.position, player.position)> viewRadius){
                 m_PlayerInRange = false;
             }
-            if (m_PlayerInRange)
-            {
+            if (m_PlayerInRange){
                 m_playerPositon = player.transform.position;
             }
         }
+    }
+
+    private void Attacking() 
+    { 
+        //Coorutina enlazada con el gamemanager
+    }
+
+    private void Dying() 
+    {
+        //Coorutina enlazada con el gamemanager
     }
 }

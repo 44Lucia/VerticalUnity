@@ -11,18 +11,16 @@ public class PlayerController : MonoBehaviour
     private CharacterController player;
 
     [Header("PlayerParameters")]
-    //Jump
-    private float gravity = 20f;
     //Movement
     [SerializeField] private float speed;
     [SerializeField] private float maxSpeed;
 
-    [Header("PlayerBooleans")]
-    private bool isWalking;
-
     [Header("Direction&Velocity")]
     private Vector3 finalVelocity;
     private Vector3 direction;
+
+    private float turnSmoothTime;
+    private float turnSmoothSpeed;
 
     private void Awake()
     {
@@ -36,7 +34,7 @@ public class PlayerController : MonoBehaviour
         //Default values movement
         finalVelocity = Vector3.zero;
         if (speed == 0f) { speed = 1f; }
-        if (maxSpeed == 0f) { maxSpeed = 7f; }
+        if (maxSpeed == 0f) { maxSpeed = 15f; }
     }
 
     private void Update()
@@ -64,9 +62,9 @@ public class PlayerController : MonoBehaviour
         finalVelocity.x = direction.x * speed;
         finalVelocity.z = direction.z * speed;
 
-        //Animaciónes
-        if (isMoving()){ isWalking = true; }
-        else { isWalking = false; }
+        float targetRotation = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+        float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref turnSmoothSpeed, turnSmoothTime);
+        if (isMoving()) { transform.rotation = Quaternion.Euler(0f, angle, 0f); }
     }
 
     private bool isMoving()

@@ -11,4 +11,6 @@ public class Rooms : MonoBehaviour
     //Pasar una función que se active cuando los enemigos mueran que sea la que active las puertas
 
     //Mediante un switch
+
+    //En las puertas asignarle mediante una variable el punto de inicio
 }
