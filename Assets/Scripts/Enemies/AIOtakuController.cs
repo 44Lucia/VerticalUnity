@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
 
-public class AIOtakuController : MonoBehaviour
+public class AIOtakuController : Enemy
 {
     private StatesOtaku currenState;
 
@@ -10,6 +11,7 @@ public class AIOtakuController : MonoBehaviour
     private float timeToRotate = 2;
     private float speedWalk = 3;
     private float speedRun = 6;
+    [SerializeField]private float coolDown;
 
     private float viewRadius = 6;
     private float viewAngle = 90;
@@ -27,6 +29,7 @@ public class AIOtakuController : MonoBehaviour
     private bool m_PlayerInRange;
     private bool m_PlayerNear;
     private bool m_CaughtPlayer;
+    private bool coolDownAttack;
 
     private void Awake()
     {
@@ -34,11 +37,14 @@ public class AIOtakuController : MonoBehaviour
         currenState = StatesOtaku.PATROL;
     }
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+
         m_playerPositon = Vector3.zero;
         m_CaughtPlayer = false;
         m_PlayerInRange = false;
+        coolDownAttack = false;
         m_WaitTime = startWaitTime;
         m_TimeToRotate = timeToRotate;
 
@@ -46,6 +52,7 @@ public class AIOtakuController : MonoBehaviour
         obstacleMask = LayerMask.GetMask("Obstacles");
 
         m_CurrentWaypointIndex = 0;
+        coolDown = 2;
 
         navMeshAgent.isStopped = false;
         navMeshAgent.speed = speedWalk;
@@ -70,6 +77,11 @@ public class AIOtakuController : MonoBehaviour
             case StatesOtaku.DEATH:
                 Dying();
                 break;
+        }
+
+        if (Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position) <= 1f)
+        {
+            currenState = StatesOtaku.ATTACK;
         }
     }
 
@@ -101,6 +113,8 @@ public class AIOtakuController : MonoBehaviour
                 }
             }
         }
+
+        
     }
 
     private void Chasing() 
@@ -197,14 +211,29 @@ public class AIOtakuController : MonoBehaviour
             }
         }
     }
+    private IEnumerator CoolDown()
+    {
+        coolDownAttack = true;
+        yield return new WaitForSeconds(coolDown);
+        coolDownAttack = false;
+    }
 
     private void Attacking() 
-    { 
-        //Coorutina enlazada con el gamemanager
+    {
+        if (!coolDownAttack){
+            GameManager.DamagePlayer(1);
+            StartCoroutine(CoolDown());
+        }
+
+        if (Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position) > 1f)
+        {
+            currenState = StatesOtaku.CHASE;
+        }
     }
 
     private void Dying() 
     {
         //Coorutina enlazada con el gamemanager
+        Destroy(this.gameObject);
     }
 }

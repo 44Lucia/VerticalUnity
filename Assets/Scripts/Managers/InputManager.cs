@@ -46,6 +46,9 @@ public class InputManager : MonoBehaviour
     private void ShootAxisUpdate(InputAction.CallbackContext context) 
     {
         currentShootInput = context.ReadValue<Vector2>();
+
+        Debug.Log("Magnitude" + currentShootInput.magnitude);
+        Debug.Log("Normalized" + currentShootInput.normalized);
     }
 
     public Vector2 GetMovementButtonPressed() => this.currentMovementInput;
