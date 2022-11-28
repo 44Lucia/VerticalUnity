@@ -38,7 +38,7 @@ public class AIOtakuController : Enemy
     }
 
     protected override void Start()
-    {
+        {
         base.Start();
 
         m_playerPositon = Vector3.zero;

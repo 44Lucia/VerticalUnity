@@ -10,11 +10,17 @@ public class Room : MonoBehaviour
     private bool hasEffect;
 
     //Cuando entres spawnean los enemigos en la sala mediante un collider
-    private Collider colliderToSpawn;
 
 
     [SerializeField]private List<Door> listDoors;
 
+    [SerializeField] private int Height;
+    [SerializeField] private int Width;
+    [SerializeField] private int Depth;
+
+    [SerializeField] private int X;
+    [SerializeField] private int Y;
+    [SerializeField] private int Z;
     private void Awake()
     {
         listDoors = new List<Door>();
@@ -36,5 +42,16 @@ public class Room : MonoBehaviour
         {
             door.OpenDoor();
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(transform.position, new Vector3(Width, Height, Depth));
+    }
+
+    public Vector3 GetRoomCenter() 
+    {
+        return new Vector3(X * Width, Y * Height, Z * Depth);
     }
 }

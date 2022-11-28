@@ -19,7 +19,6 @@ public class Door : MonoBehaviour
     {
         RoomManager.Instance.GetCurrentRoom.AddDoor(this);
         collider = GetComponent<Collider>();
-        //camera = Camera.main.transform;
     }
 
     public void OpenDoor() 
@@ -34,6 +33,7 @@ public class Door : MonoBehaviour
 
         roomManager.ActiveRoom(roomManager.CurrentRoom, false);
         roomManager.CurrentRoom = destinationRoom;
+        CameraMovement.Instance.UpdatePosition();
         roomManager.ActiveRoom(destinationRoom, true);
         PlayerController.Instance.SetPosition(newPosPlayer.position);
     }

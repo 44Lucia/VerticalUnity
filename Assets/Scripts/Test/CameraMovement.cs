@@ -2,26 +2,44 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraMovement : MonoBehaviour
+public class CameraMovement : Singleton<CameraMovement>
 {
     //Poner limites en la camara que siga al jugador 
-    [SerializeField] private Transform targetToFollow;
 
     //Que cambie de posicion y limites cuando cambias de habitación
 
-    // Start is called before the first frame update
-    void Start()
+    private float moveSpeedWhenRoomChange = 100;
+
+    protected override void Awake()
     {
-        
+        base.Awake();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UpdatePosition() 
     {
-        transform.position = new Vector3(
-            transform.position.x,
-            transform.position.y,
-            Mathf.Clamp(targetToFollow.position.x, -35.63f, 5.5f)
-            );
+        if (RoomManager.Instance.GetCurrentRoom == null){
+            Debug.Log("no room");
+            return;
+        }
+
+        Vector3 targetPos = GetCameraTargetPosition();
+
+        transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * moveSpeedWhenRoomChange);
+    }
+
+    Vector3 GetCameraTargetPosition() 
+    {
+        if (RoomManager.Instance.GetCurrentRoom == null)
+        {
+            return Vector3.zero;
+        }
+        Vector3 targetPos = RoomManager.Instance.GetCurrentRoom.GetRoomCenter();
+
+        return targetPos;
+    }
+
+    public bool IsSwitchingScene() 
+    {
+        return transform.position.Equals(GetCameraTargetPosition()) == false;
     }
 }
