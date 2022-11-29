@@ -18,9 +18,6 @@ public class Room : MonoBehaviour
     [SerializeField] private int Width;
     [SerializeField] private int Depth;
 
-    [SerializeField] private int X;
-    [SerializeField] private int Y;
-    [SerializeField] private int Z;
     private void Awake()
     {
         listDoors = new List<Door>();
@@ -46,12 +43,22 @@ public class Room : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        Vector3 pos = transform.position;
+        pos.z += Depth * 0.5f;
+        pos.x += Width * 0.5f;
+        pos.y += Height * 0.5f;
+
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(transform.position, new Vector3(Width, Height, Depth));
+        Gizmos.DrawWireCube(pos, new Vector3(Width, Height, Depth));
     }
 
     public Vector3 GetRoomCenter() 
     {
-        return new Vector3(X * Width, Y * Height, Z * Depth);
+        Vector3 pos = transform.position;
+        pos.z += Depth * 0.5f;
+        pos.x += Width * 0.5f;
+        pos.y += Height * 0.5f;
+
+        return pos;
     }
 }

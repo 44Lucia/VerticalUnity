@@ -8,7 +8,7 @@ public class CameraMovement : Singleton<CameraMovement>
 
     //Que cambie de posicion y limites cuando cambias de habitación
 
-    private float moveSpeedWhenRoomChange = 100;
+    [SerializeField] private float moveSpeedWhenRoomChange = 100;
 
     protected override void Awake()
     {
@@ -23,8 +23,17 @@ public class CameraMovement : Singleton<CameraMovement>
         }
 
         Vector3 targetPos = GetCameraTargetPosition();
+        targetPos.y = transform.position.y;
+        Vector3 dir = targetPos - transform.position;
 
-        transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * moveSpeedWhenRoomChange);
+        if (dir.sqrMagnitude < 0.1f){
+            return;
+        }
+        dir.Normalize();
+
+        transform.position += moveSpeedWhenRoomChange * dir * Time.deltaTime;
+
+        transform.position = targetPos;
     }
 
     Vector3 GetCameraTargetPosition() 
@@ -36,10 +45,5 @@ public class CameraMovement : Singleton<CameraMovement>
         Vector3 targetPos = RoomManager.Instance.GetCurrentRoom.GetRoomCenter();
 
         return targetPos;
-    }
-
-    public bool IsSwitchingScene() 
-    {
-        return transform.position.Equals(GetCameraTargetPosition()) == false;
     }
 }

@@ -4,18 +4,68 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
-    private float lifeTime;
+    [SerializeField]private Transform target;
 
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] float speed = 70f;
+    [SerializeField] int damage = 1;
+    [SerializeField] float explosionRadius = 0f;
+
+    [SerializeField] GameObject impactEffect;
+
+    private void Start()
     {
-        lifeTime = 0.5f;
-        StartCoroutine(DeathDelay());
+        target = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
-    IEnumerator DeathDelay() 
+    private void Update()
     {
-        yield return new WaitForSeconds(lifeTime);
+        if (target == null){
+            return;
+        }
+
+        Vector3 dir = target.position - transform.position;
+        float distanceThisFrame = speed * Time.deltaTime;
+
+        if (dir.magnitude <= distanceThisFrame){
+            HitTarget();
+            return;
+        }
+
+        transform.Translate(dir.normalized * distanceThisFrame, Space.World);
+        transform.LookAt(target);
+    }
+
+    private void HitTarget() 
+    {
+        GameObject effectIns = Instantiate(impactEffect, transform.position, transform.rotation);
+        Destroy(effectIns, 5f);
+
+        if (explosionRadius > 0f)
+        {
+            Explode();
+        }
+        else
+        {
+            Damage(target);
+        }
+
         Destroy(gameObject);
+    }
+
+    private void Damage(Transform enemy) 
+    {
+        Debug.Log("daño");
+    }
+
+    private void Explode() 
+    {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
+        foreach (Collider collider in colliders)
+        {
+            if (collider.CompareTag("Player"))
+            {
+                Damage(collider.transform);
+            }
+        }
     }
 }

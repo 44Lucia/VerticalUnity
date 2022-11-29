@@ -7,6 +7,9 @@ public class AICheerleaderController : Enemy
 {
     private StatesCheerleader currenState;
 
+    [SerializeField] Transform partToRotate;
+    private float turnSpeed = 10f;
+
     [SerializeField] Transform target;
     private NavMeshAgent navMeshAgent;
     [SerializeField] private Transform[] projectileSpawnPoint;
@@ -53,28 +56,12 @@ public class AICheerleaderController : Enemy
         //Animacion bailando
     }
 
-    private void StartRotating() 
+    private void LookAtTarget() 
     {
-        if (LookCoroutine != null){
-            StopCoroutine(LookCoroutine);
-        }
-        LookCoroutine = StartCoroutine(LookAt());
-    }
-
-    private IEnumerator LookAt() 
-    {
-        Quaternion lookRotation = Quaternion.LookRotation(target.position - transform.position);
-
-        float time = 0;
-
-        while (time < 1) 
-        {
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, time);
-
-            time += Time.deltaTime * 1;
-
-            yield return null;
-        }
+        Vector3 dir = target.position - transform.position;
+        Quaternion lookRotation = Quaternion.LookRotation(dir);
+        Vector3 rotation = Quaternion.Lerp(partToRotate.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
+        partToRotate.rotation = Quaternion.Euler(0f, rotation.y, 0f);
     }
 
     private void Shooting() 
@@ -82,10 +69,9 @@ public class AICheerleaderController : Enemy
         distanceBetweenTarget = Vector3.Distance(target.position, transform.position);
         if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
         {
+            LookAtTarget();
             if (countdownBetweenFire <= 0f)
             {
-                StartRotating();
-
                 foreach (Transform SpawnPoint in projectileSpawnPoint)
                 {
                     Instantiate(projectilePrefab, SpawnPoint.position, transform.rotation);
