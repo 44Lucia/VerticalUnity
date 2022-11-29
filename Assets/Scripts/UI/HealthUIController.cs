@@ -12,8 +12,8 @@ public class HealthUIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        fillValue = (float)GameManager.Health;
-        fillValue = fillValue / GameManager.MaxHealth;
+        fillValue = (float)GameManager.Instance.Health;
+        fillValue = fillValue / GameManager.Instance.MaxHealth;
         heartContainer.GetComponent<Image>().fillAmount = fillValue;
     }
 }

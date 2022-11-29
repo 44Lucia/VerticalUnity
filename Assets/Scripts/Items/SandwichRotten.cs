@@ -8,9 +8,9 @@ public class SandwichRotten : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (GameManager.Health < 0)
+            if (GameManager.Instance.Health < 0)
             {
-                GameManager.Health -= 1;
+                GameManager.Instance.Health -= 1;
             }
         }
     }

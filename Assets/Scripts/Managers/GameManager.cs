@@ -3,30 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
     public static GameManager _GAME_MANAGER;
     [SerializeField] private Text healthText;
+    private bool isPaused = false;
 
-    private static int health = 6;
-    private static int maxHealth = 6;
-    private static float moveSpeed = 5f;
-    private static float fireRate = 0.5f;
+    private float health = 6;
+    private int maxHealth = 6;
     //Contendra las recargas de la ulti
 
     //Funciones para upgradear las stats
 
     //Una lista de los objetos recogidos
 
-    public static int Health { get => health; set => health = value; }
-    public static int MaxHealth { get => maxHealth; set => maxHealth = value; }
-    public static float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }
-    public static float FireRate { get => fireRate; set => fireRate = value; }
+    public float Health { get => health; set => health = value; }
+    public int MaxHealth { get => maxHealth; set => maxHealth = value; }
 
-    
 
-    private void Awake()
+
+    protected override void Awake()
     {
+        base.Awake();
         if (_GAME_MANAGER != null && _GAME_MANAGER != this){
             Destroy(_GAME_MANAGER);
         }else{
@@ -40,7 +38,7 @@ public class GameManager : MonoBehaviour
         healthText.text = "Health: " + health;
     }
 
-    public static void DamagePlayer(int damage) 
+    public void DamagePlayer(float damage) 
     {
         health -= damage;
 
@@ -50,14 +48,19 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public static void HealPlayer(int healAmount) 
+    public void HealPlayer(int healAmount) 
     {
         health = Mathf.Min(maxHealth, health + healAmount);
     }
 
-    private static void KillPlayer() 
+    private void KillPlayer() 
     { 
         
+    }
+
+    public void pauseGame(bool isPause)
+    {
+        isPaused = isPause;
     }
 
 }

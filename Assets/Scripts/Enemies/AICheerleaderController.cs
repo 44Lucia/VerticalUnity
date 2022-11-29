@@ -8,7 +8,7 @@ public class AICheerleaderController : Enemy
     private StatesCheerleader currenState;
 
     [SerializeField] Transform partToRotate;
-    private float turnSpeed = 10f;
+    [SerializeField] private float turnSpeed = 10f;
 
     [SerializeField] Transform target;
     private NavMeshAgent navMeshAgent;
@@ -16,9 +16,9 @@ public class AICheerleaderController : Enemy
     [SerializeField] private GameObject projectilePrefab;
 
     [SerializeField] float EnemyRange = 20f;
-    private float distanceBetweenTarget;
-    private float countdownBetweenFire = 0f;
-    private float fireRate = 2f;
+    [SerializeField] private float distanceBetweenTarget;
+    [SerializeField] private float countdownBetweenFire = 0f;
+    [SerializeField] private float fireRate = 2f;
 
     private Coroutine LookCoroutine;
 
@@ -45,15 +45,16 @@ public class AICheerleaderController : Enemy
                 break;
         }
 
-        if (Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position) <= 8f)
-        {
-            currenState = StatesCheerleader.ATTACK;
-        }
+        
     }
 
     private void Idling() 
-    { 
-        //Animacion bailando
+    {
+        if (Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position) <= 8f)
+        {
+            currenState = StatesCheerleader.ATTACK;
+            // DANCE ANIMATION
+        }
     }
 
     private void LookAtTarget() 
@@ -66,6 +67,11 @@ public class AICheerleaderController : Enemy
 
     private void Shooting() 
     {
+        if (Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position) >= 8f)
+        {
+            currenState = StatesCheerleader.IDLE;
+        }
+
         distanceBetweenTarget = Vector3.Distance(target.position, transform.position);
         if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
         {

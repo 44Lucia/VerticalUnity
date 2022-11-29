@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
-    [SerializeField]private Transform target;
+    [SerializeField] private Transform target;
 
     [SerializeField] float speed = 70f;
     [SerializeField] int damage = 1;
     [SerializeField] float explosionRadius = 0f;
 
-    [SerializeField] GameObject impactEffect;
+    //[SerializeField] GameObject impactEffect;
 
     private void Start()
     {
@@ -37,8 +37,8 @@ public class BulletController : MonoBehaviour
 
     private void HitTarget() 
     {
-        GameObject effectIns = Instantiate(impactEffect, transform.position, transform.rotation);
-        Destroy(effectIns, 5f);
+        //GameObject effectIns = Instantiate(impactEffect, transform.position, transform.rotation);
+        //Destroy(effectIns, 5f);
 
         if (explosionRadius > 0f)
         {
@@ -54,7 +54,7 @@ public class BulletController : MonoBehaviour
 
     private void Damage(Transform enemy) 
     {
-        Debug.Log("daño");
+        GameManager.Instance.DamagePlayer(0.5f);
     }
 
     private void Explode() 

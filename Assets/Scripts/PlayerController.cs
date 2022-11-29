@@ -44,14 +44,15 @@ public class PlayerController : Singleton<PlayerController>
         //Default values movement
         finalVelocity = Vector3.zero;
         if (speed == 0f) { speed = 8f; }
+
     }
 
     private void Update()
     {
         //Movement
         Move();
-        //Shooting();
-
+        Shooting();
+        
         //if (!player.isGrounded){ finalVelocity.y += direction.y * gravity * Time.deltaTime; }
 
         player.Move(finalVelocity * Time.deltaTime);

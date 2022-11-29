@@ -29,7 +29,7 @@ public class AIOtakuController : Enemy
     private bool m_PlayerInRange;
     private bool m_PlayerNear;
     private bool m_CaughtPlayer;
-    private bool coolDownAttack;
+    private bool m_coolDownAttack;
 
     private void Awake()
     {
@@ -38,13 +38,13 @@ public class AIOtakuController : Enemy
     }
 
     protected override void Start()
-        {
+    {
         base.Start();
 
         m_playerPositon = Vector3.zero;
         m_CaughtPlayer = false;
         m_PlayerInRange = false;
-        coolDownAttack = false;
+        m_coolDownAttack = false;
         m_WaitTime = startWaitTime;
         m_TimeToRotate = timeToRotate;
 
@@ -113,8 +113,6 @@ public class AIOtakuController : Enemy
                 }
             }
         }
-
-        
     }
 
     private void Chasing() 
@@ -122,7 +120,8 @@ public class AIOtakuController : Enemy
         m_PlayerNear = false;
         playerLastPosition = Vector3.zero;
 
-        if (!m_CaughtPlayer){
+        if (!m_coolDownAttack)
+        {
             Move(speedRun);
             navMeshAgent.SetDestination(m_playerPositon);
         }
@@ -213,15 +212,16 @@ public class AIOtakuController : Enemy
     }
     private IEnumerator CoolDown()
     {
-        coolDownAttack = true;
+        m_coolDownAttack = true;
         yield return new WaitForSeconds(coolDown);
-        coolDownAttack = false;
+        m_coolDownAttack = false;
     }
 
     private void Attacking() 
     {
-        if (!coolDownAttack){
-            GameManager.DamagePlayer(1);
+        if (!m_coolDownAttack)
+        {
+            GameManager.Instance.DamagePlayer(1);
             StartCoroutine(CoolDown());
         }
 

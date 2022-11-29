@@ -15,6 +15,11 @@ public class CameraMovement : Singleton<CameraMovement>
         base.Awake();
     }
 
+    private void Update()
+    {
+        UpdatePosition();
+    }
+
     public void UpdatePosition() 
     {
         if (RoomManager.Instance.GetCurrentRoom == null){
@@ -33,7 +38,7 @@ public class CameraMovement : Singleton<CameraMovement>
 
         transform.position += moveSpeedWhenRoomChange * dir * Time.deltaTime;
 
-        transform.position = targetPos;
+        //transform.position = targetPos;
     }
 
     Vector3 GetCameraTargetPosition() 
@@ -45,5 +50,10 @@ public class CameraMovement : Singleton<CameraMovement>
         Vector3 targetPos = RoomManager.Instance.GetCurrentRoom.GetRoomCenter();
 
         return targetPos;
+    }
+
+    public bool IsSwitchingScene()
+    {
+        return transform.position.Equals(GetCameraTargetPosition()) == false;
     }
 }
