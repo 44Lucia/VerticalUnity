@@ -10,11 +10,16 @@ public class BulletController : MonoBehaviour
     [SerializeField] int damage = 1;
     [SerializeField] float explosionRadius = 0f;
 
-    //[SerializeField] GameObject impactEffect;
+    private Vector3 dir;
 
     private void Start()
     {
         target = GameObject.FindGameObjectWithTag("Player").transform;
+
+        Destroy(gameObject, 3);
+
+        dir.x = target.position.x - transform.position.x;
+        dir.z = target.position.z - transform.position.z;
     }
 
     private void Update()
@@ -23,13 +28,7 @@ public class BulletController : MonoBehaviour
             return;
         }
 
-        Vector3 dir = target.position - transform.position;
         float distanceThisFrame = speed * Time.deltaTime;
-
-        if (dir.magnitude <= distanceThisFrame){
-            HitTarget();
-            return;
-        }
 
         transform.Translate(dir.normalized * distanceThisFrame, Space.World);
         transform.LookAt(target);
@@ -37,9 +36,6 @@ public class BulletController : MonoBehaviour
 
     private void HitTarget() 
     {
-        //GameObject effectIns = Instantiate(impactEffect, transform.position, transform.rotation);
-        //Destroy(effectIns, 5f);
-
         if (explosionRadius > 0f)
         {
             Explode();
@@ -66,6 +62,14 @@ public class BulletController : MonoBehaviour
             {
                 Damage(collider.transform);
             }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            HitTarget();
         }
     }
 }

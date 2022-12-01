@@ -14,18 +14,18 @@ public class AICheerleaderController : Enemy
     private NavMeshAgent navMeshAgent;
     [SerializeField] private Transform[] projectileSpawnPoint;
     [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private LayerMask obstacleMask;
 
     [SerializeField] float EnemyRange = 20f;
     [SerializeField] private float distanceBetweenTarget;
     [SerializeField] private float countdownBetweenFire = 0f;
     [SerializeField] private float fireRate = 2f;
 
-    private Coroutine LookCoroutine;
-
     protected override void Start()
     {
         base.Start();
 
+        obstacleMask = LayerMask.GetMask("Obstacles");
         currenState = StatesCheerleader.IDLE;
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
@@ -43,9 +43,7 @@ public class AICheerleaderController : Enemy
             case StatesCheerleader.DEATH:
                 Dying();
                 break;
-        }
-
-        
+        }      
     }
 
     private void Idling() 
@@ -67,25 +65,32 @@ public class AICheerleaderController : Enemy
 
     private void Shooting() 
     {
+        Vector3 dirToPlayer = (target.position - transform.position).normalized;
+        float dstToPlayer = Vector3.Distance(transform.position, target.position);
+
         if (Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position) >= 8f)
         {
             currenState = StatesCheerleader.IDLE;
         }
 
-        distanceBetweenTarget = Vector3.Distance(target.position, transform.position);
-        if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
+        //If there are no obstacles in between
+        if (!Physics.Raycast(transform.position, dirToPlayer, dstToPlayer, obstacleMask))
         {
-            LookAtTarget();
-            if (countdownBetweenFire <= 0f)
+            distanceBetweenTarget = Vector3.Distance(target.position, transform.position);
+            if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
             {
-                foreach (Transform SpawnPoint in projectileSpawnPoint)
+                LookAtTarget();
+                if (countdownBetweenFire <= 0f)
                 {
-                    Instantiate(projectilePrefab, SpawnPoint.position, transform.rotation);
-                }
+                    foreach (Transform SpawnPoint in projectileSpawnPoint)
+                    {
+                        Instantiate(projectilePrefab, SpawnPoint.position, transform.rotation);
+                    }
 
-                countdownBetweenFire = 1f / fireRate;
+                    countdownBetweenFire = 1f / fireRate;
+                }
+                countdownBetweenFire -= Time.deltaTime;
             }
-            countdownBetweenFire -= Time.deltaTime;
         }
     }
 

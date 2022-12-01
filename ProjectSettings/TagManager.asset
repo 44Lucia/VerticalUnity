@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - room
   - PauseMenu
+  - Wall
+  - BulletPlayer
   layers:
   - Default
   - TransparentFX

@@ -10,6 +10,8 @@ public class PlayerController : Singleton<PlayerController>
     [Header("Components")]
     private CharacterController player;
 
+    [SerializeField]private Transform spawnPos;
+
     [Header("PlayerParameters")]
     //Movement
     [SerializeField] private float speed;
@@ -24,9 +26,8 @@ public class PlayerController : Singleton<PlayerController>
 
     [Header("ShootParameters")]
     [SerializeField] private GameObject bulletPrefab;
-    private float bulletSpeed;
-    private float lastFire;
-    private float fireDelay;
+    [SerializeField] private float countdownBetweenFire = 0f;
+    [SerializeField] private float fireRate = 2f;
 
     protected override void Awake()
     {
@@ -37,9 +38,6 @@ public class PlayerController : Singleton<PlayerController>
     private void Start()
     {
         input = InputManager._INPUT_MANAGER;
-
-        fireDelay = 0.5f;
-        bulletSpeed = 7.5f;
 
         //Default values movement
         finalVelocity = Vector3.zero;
@@ -80,36 +78,41 @@ public class PlayerController : Singleton<PlayerController>
         return finalVelocity.x != 0 || finalVelocity.z != 0;
     }
 
+    private void InstBullet() 
+    {
+        if (countdownBetweenFire <= 0f)
+        {
+            Instantiate(bulletPrefab, spawnPos.transform.position, transform.rotation);
+            countdownBetweenFire = 1f / fireRate;
+        }
+        countdownBetweenFire -= Time.deltaTime;
+    }
+
     private void Shooting() 
     {
-        float shootHor = input.GetShootButtonPressed().x;
-        float shootVert = input.GetShootButtonPressed().y;
-
         if (input.GetShootButtonPressed().x == -1)
         {
+            transform.rotation = Quaternion.Euler(0f, -90f, 0f);
+            InstBullet();
             //Izquierda
         }
         else if (input.GetShootButtonPressed().x == 1)
         {
+            transform.rotation = Quaternion.Euler(0f, 90f, 0f);
+            InstBullet();
             //Derecha
         }
         else if (input.GetShootButtonPressed().y == -1) 
-        { 
+        {
+            transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            InstBullet();
             //Abajo
         }
         else if (input.GetShootButtonPressed().y == 1)
         {
+            transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+            InstBullet();
             //Arriba
-        }
-
-        if ((shootHor !=0 || shootVert !=0) && Time.time > lastFire + fireDelay){
-            GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation) as GameObject;
-            bullet.GetComponent<Rigidbody>().velocity = new Vector3(
-                (shootHor < 0) ? Mathf.Floor(shootHor) * bulletSpeed : Mathf.Ceil(shootHor) * bulletSpeed,
-                (shootVert < 0) ? Mathf.Floor(shootVert) * bulletSpeed : Mathf.Ceil(shootVert) * bulletSpeed,
-                0
-                );
-            lastFire = Time.time;
         }
     }
 

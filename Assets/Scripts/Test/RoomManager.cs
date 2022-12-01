@@ -44,5 +44,7 @@ public class RoomManager : Singleton<RoomManager>
 
     public Room GetCurrentRoom => currentRoom;
 
+    public List<Enemy> GetCurrentEnemies => currenEnemies;
+
     public Room CurrentRoom { get { return currentRoom; } set { currentRoom = value; }  }
 }

@@ -18,8 +18,9 @@ public abstract class Enemy : MonoBehaviour
         roomManager.RemoveEnemy(this);
         if (roomManager.GetNumberOfEnemies <= 0){
             roomManager.GetCurrentRoom.OpenDoors();
-            Debug.Log("muertos");
         }
+
+        Destroy(gameObject);
     }
 
     public virtual void OnHit() 
@@ -27,6 +28,14 @@ public abstract class Enemy : MonoBehaviour
         health--;
         if (health <= 0){
             OnDeath();
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("BulletPlayer"))
+        {
+            OnHit();
         }
     }
 }
