@@ -121,5 +121,9 @@ public class NavigationMenu : MonoBehaviour
         return m_menuStack.Peek().ID;
     }
 
+    public void GoToGame() 
+    {
+        SceneManager.Instance.LoadScene(1);
+    }
 }
 

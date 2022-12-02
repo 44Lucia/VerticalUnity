@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class GameManager : Singleton<GameManager>
 {
     public static GameManager _GAME_MANAGER;
-    [SerializeField] private Text healthText;
     private bool isPaused = false;
 
     private float health = 6;
@@ -31,11 +30,6 @@ public class GameManager : Singleton<GameManager>
             _GAME_MANAGER = this;
             DontDestroyOnLoad(this);
         }
-    }
-
-    private void Update()
-    {
-        healthText.text = "Health: " + health;
     }
 
     public void DamagePlayer(float damage) 
