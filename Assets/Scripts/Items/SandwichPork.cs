@@ -8,9 +8,9 @@ public class SandwichPork : MonoBehaviour
      {
          if (other.CompareTag("Player"))
          {
-             if (GameManager.Instance.Health != GameManager.Instance.MaxHealth)
+             if (GameManager._GAME_MANAGER.Health != GameManager._GAME_MANAGER.MaxHealth)
              {
-                 GameManager.Instance.Health += 1;
+                 GameManager._GAME_MANAGER.Health += 1;
              }
          }
     }

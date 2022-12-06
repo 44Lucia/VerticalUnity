@@ -3,33 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameManager : Singleton<GameManager>
+public class GameManager : MonoBehaviour
 {
     public static GameManager _GAME_MANAGER;
     private bool isPaused = false;
-
-    private float health = 6;
-    private int maxHealth = 6;
-    //Contendra las recargas de la ulti
+    
 
     //Funciones para upgradear las stats
+    [SerializeField] private float timeToDestroyBullet;
+
+    //Contendra las recargas de la ulti
+    [SerializeField] private float ultimateCharges = 0;
+    [SerializeField] private float maxUltimateCharges = 4;
+
+    [SerializeField] private float health = 6;
+    [SerializeField] private int maxHealth = 6;
+    [SerializeField] private bool isInvincible = false;
 
     //Una lista de los objetos recogidos
 
-    public float Health { get => health; set => health = value; }
-    public int MaxHealth { get => maxHealth; set => maxHealth = value; }
-
-
-
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
         if (_GAME_MANAGER != null && _GAME_MANAGER != this){
             Destroy(_GAME_MANAGER);
         }else{
             _GAME_MANAGER = this;
             DontDestroyOnLoad(this);
         }
+    }
+
+    private void Start()
+    {
+        timeToDestroyBullet = 0.4f;
     }
 
     public void DamagePlayer(float damage) 
@@ -56,5 +61,15 @@ public class GameManager : Singleton<GameManager>
     {
         isPaused = isPause;
     }
+
+    public float Health { get => health; set => health = value; }
+    public int MaxHealth { get => maxHealth; set => maxHealth = value; }
+
+    public float GetTimeToDestroyBullet => timeToDestroyBullet;
+    public float SetTimeToDestroyBullet { get => timeToDestroyBullet; set => timeToDestroyBullet = value; }
+
+    public float GetChargesUltimate => ultimateCharges;
+    public float SetMaxChargesUltimate { get => maxUltimateCharges; set => maxUltimateCharges = value; }
+    public float SetChargesUltimate { get => ultimateCharges; set => ultimateCharges = value; }
 
 }

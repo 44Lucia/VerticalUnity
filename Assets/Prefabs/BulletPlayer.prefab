@@ -114,6 +114,7 @@ MonoBehaviour:
   speed: 20
   damage: 1
   explosionRadius: 0
+  timeToDestroy: 0.4
 --- !u!54 &-3183376420382776312
 Rigidbody:
   m_ObjectHideFlags: 0

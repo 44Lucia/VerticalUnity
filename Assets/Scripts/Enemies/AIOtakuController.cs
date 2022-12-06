@@ -221,7 +221,7 @@ public class AIOtakuController : Enemy
     {
         if (!m_coolDownAttack)
         {
-            GameManager.Instance.DamagePlayer(1);
+            GameManager._GAME_MANAGER.DamagePlayer(1);
             StartCoroutine(CoolDown());
         }
 

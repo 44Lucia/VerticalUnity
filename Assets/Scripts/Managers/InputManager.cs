@@ -17,8 +17,8 @@ public class InputManager : MonoBehaviour
     //Attack
     private Vector2 currentShootInput;
 
-    //Puse
-    private float timeSincePausePressed = 0f;
+    //Ultimate
+    private UnityEvent ultimatePressed;
 
     private void Awake()
     {
@@ -34,19 +34,18 @@ public class InputManager : MonoBehaviour
 
             playerInput.Character.Move.performed += LeftAxisUpdate;
             playerInput.Character.Attack.performed += ShootAxisUpdate;
-            playerInput.Character.PauseMenu.performed += PauseMenuPressed;
             playerInput.Character.PauseMenu.performed += PauseMenuPressedCallback;
+            playerInput.Character.Ultimate.performed += UltimateButtonPressedCallback;
             _INPUT_MANAGER = this;
             DontDestroyOnLoad(this);
         }
 
         scapePressed = new UnityEvent();
+        ultimatePressed = new UnityEvent();
 
     }
     private void Update()
     {
-        timeSincePausePressed += Time.deltaTime;
-
         InputSystem.Update();
     }
 
@@ -60,9 +59,25 @@ public class InputManager : MonoBehaviour
         currentShootInput = context.ReadValue<Vector2>();
     }
 
-    private void PauseMenuPressed(InputAction.CallbackContext context) 
+    private void PauseMenuPressedCallback(InputAction.CallbackContext context) 
+    { 
+        scapePressed.Invoke(); 
+    }
+
+    private void UltimateButtonPressedCallback(InputAction.CallbackContext context) 
     {
-        timeSincePausePressed = 0f;
+        ultimatePressed.Invoke();
+    }
+
+
+    public void AddListennerToUltimateButton(UnityAction action) 
+    { 
+        ultimatePressed.AddListener(action); 
+    }
+
+    public void RemoveListennerToUltimateButton(UnityAction action)
+    {
+        ultimatePressed.RemoveListener(action);
     }
 
     public void AddListennerToPressScape(UnityAction action) 
@@ -70,7 +85,6 @@ public class InputManager : MonoBehaviour
         scapePressed.AddListener(action);
     }
 
-    private void PauseMenuPressedCallback(InputAction.CallbackContext context) { scapePressed.Invoke(); }
 
     public void RemoveListennerToPressScape(UnityAction action)
     {
@@ -80,6 +94,4 @@ public class InputManager : MonoBehaviour
     public Vector2 GetMovementButtonPressed() => this.currentMovementInput;
 
     public Vector2 GetShootButtonPressed() => this.currentShootInput;
-
-    public bool GetPauseButtonPressed() => this.timeSincePausePressed == 0f;
 }

@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &255525332
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 255525333}
+  m_Layer: 0
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &255525333
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 255525332}
+  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -0.21, y: 1.34, z: -2.117}
+  m_LocalScale: {x: 1, y: 0.89678055, z: 1.3051418}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4967394795963414158}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4967394795963181742
 GameObject:
   m_ObjectHideFlags: 0
@@ -11,10 +42,8 @@ GameObject:
   - component: {fileID: 4967394795963414158}
   - component: {fileID: 4967394795966281390}
   - component: {fileID: 4967394795965183086}
-  - component: {fileID: 237563079604580099}
-  - component: {fileID: 7284872449170961703}
-  - component: {fileID: 3294529228136862369}
-  - component: {fileID: 1209845794651283565}
+  - component: {fileID: 1494789803}
+  - component: {fileID: 1494789804}
   m_Layer: 0
   m_Name: Wall_Archway
   m_TagString: Untagged
@@ -29,10 +58,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4967394795963181742}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_LocalScale: {x: 0.76620007, y: 1.1151, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 255525333}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -55,10 +86,12 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -83,21 +116,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &237563079604580099
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4967394795963181742}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 2487019270593583599, guid: ef3a35881a3d79f4d8c868951a0c5c16, type: 3}
---- !u!65 &7284872449170961703
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &1494789803
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -108,31 +128,19 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.2, y: 3, z: 0.5}
-  m_Center: {x: -1.4, y: 1.5, z: 0}
---- !u!65 &3294529228136862369
-BoxCollider:
+  m_Size: {x: 4.0000033, y: 3.0000005, z: 0.483611}
+  m_Center: {x: 0.000005445477, y: 1.5000002, z: -0.18754214}
+--- !u!114 &1494789804
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4967394795963181742}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.2, y: 3, z: 0.5}
-  m_Center: {x: 1.4, y: 1.5, z: 0}
---- !u!65 &1209845794651283565
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4967394795963181742}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.6, y: 1, z: 0.5}
-  m_Center: {x: 0, y: 2.5, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7ff23a483db6c94b9265c0bbd7bf57e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destinationRoom: {fileID: 0}
+  newPosPlayer: {fileID: 255525333}
