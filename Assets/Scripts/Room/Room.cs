@@ -6,11 +6,7 @@ public class Room : MonoBehaviour
 {
     //Controla mediante el GameManager los puntos de la ulti
 
-    //Ver si esa sala tiene algun efecto comparando con los tags
-    private bool hasEffect;
-
-    //Cuando entres spawnean los enemigos en la sala mediante un collider
-
+    [SerializeField] private List<Effect> listEffect;
 
     [SerializeField]private List<Door> listDoors;
 
@@ -60,5 +56,12 @@ public class Room : MonoBehaviour
         pos.y += Height * 0.5f;
 
         return pos;
+    }
+
+    public void initRoom()
+    {
+        foreach (Effect effect in listEffect) {
+            effect.handleEffect();
+        }
     }
 }

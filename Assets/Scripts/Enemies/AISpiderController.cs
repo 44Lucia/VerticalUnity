@@ -9,7 +9,7 @@ public class AISpiderController : Enemy
     [SerializeField] private float startWaitTime = 1;
     [SerializeField] private float timeToRotate = 2;
     [SerializeField] private float speedWalk = 3;
-
+    [SerializeField] private GameObject deathEffect;
 
     [SerializeField] private Transform[] waypoints;
     private int m_CurrentWaypointIndex;
@@ -35,6 +35,8 @@ public class AISpiderController : Enemy
         m_TimeToRotate = timeToRotate;
 
         m_CurrentWaypointIndex = 0;
+
+        impactEffect = deathEffect;
 
         navMeshAgent.isStopped = false;
         navMeshAgent.speed = speedWalk;

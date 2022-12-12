@@ -14,8 +14,8 @@ public class PlayerController : Singleton<PlayerController>
     private AnimatorController aController;
 
     [Header("PlayerParameters")]
-    //Movement
     [SerializeField] private float speed;
+    private float normalSpeed;
     private float gravity = 20f;
 
     [Header("Direction&Velocity")]
@@ -29,6 +29,7 @@ public class PlayerController : Singleton<PlayerController>
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private float countdownBetweenFire = 0f;
     [SerializeField] private float fireRate = 2f;
+    [SerializeField] private bool isShooting = false;
 
     protected override void Awake()
     {
@@ -44,27 +45,26 @@ public class PlayerController : Singleton<PlayerController>
         //Default values movement
         finalVelocity = Vector3.zero;
         if (speed == 0f) { speed = 8f; }
+        normalSpeed = 8;
 
         input.AddListennerToUltimateButton(Ultimate);
     }
 
     private void Update()
     {
-        if (!isMoving()){
+        if (!isMoving() && !isShooting)
+        {
             aController.playAnimation(ANIMATIONS.Idle, 0.0f);
         }
-        else{
+        else if (isMoving() && !isShooting){
             aController.playAnimation(ANIMATIONS.Move, 0.0f);
         }
+
+        Debug.Log(GameManager._GAME_MANAGER.SetChargesUltimate);
 
         //Movement
         Move();
         Shooting();
-
-        Debug.Log(GameManager._GAME_MANAGER.GetChargesUltimate);
-
-
-        //if (!player.isGrounded){ finalVelocity.y += direction.y * gravity * Time.deltaTime; }
 
         player.Move(finalVelocity * Time.deltaTime);
 
@@ -106,7 +106,10 @@ public class PlayerController : Singleton<PlayerController>
     {
         if (countdownBetweenFire <= 0f)
         {
-            aController.playAnimation(ANIMATIONS.Attack, 0.0f);
+            if (!aController.isAnimationRunning(ANIMATIONS.Attack))
+            {
+                aController.playAnimation(ANIMATIONS.Attack, 0.0f);
+            }
             Instantiate(bulletPrefab, spawnPos.transform.position, transform.rotation);
             countdownBetweenFire = 1f / fireRate;
         }
@@ -120,6 +123,7 @@ public class PlayerController : Singleton<PlayerController>
         {
             transform.rotation = Quaternion.Euler(0f, -90f, 0f);
             InstBullet();
+            isShooting = true;
         }
 
         //Shoot right
@@ -150,6 +154,8 @@ public class PlayerController : Singleton<PlayerController>
         player.transform.position = newPos;
         player.enabled = true;
     }
+
+    public void ResetStats() { speed = normalSpeed; }
 
     public float Speed { get { return speed; } set { speed = value; } }
 }

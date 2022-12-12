@@ -24,23 +24,39 @@ public class RoomManager : Singleton<RoomManager>
         currenEnemies.Remove(enemy);
     }
 
-    public void ActiveRoom(Room room, bool value) 
+    public void SetRoomTo(Room room) 
     {
-        room.gameObject.SetActive(value);
+        PlayerController.Instance.ResetStats();
+        currentRoom = room;
+        room.gameObject.SetActive(true);
+        StartCoroutine(InitRoom(room));
+        GameManager._GAME_MANAGER.GetInCombat = true;
+    }
+
+    public IEnumerator InitRoom(Room room)
+    {
+        yield return new WaitForSeconds(0.1f);
+        if (currenEnemies.Count != 0)
+        {
+            room.initRoom();
+        }
     }
 
     private void OnGUI()
     {
         if (GUI.Button(new Rect(520, 400, 100,20), "HitEnemy", "button"))
         {
-            for (int i = 0; i < currenEnemies.Count; i++)
-            {
+            for (int i = 0; i < currenEnemies.Count; i++){
                 currenEnemies[i].OnHit();
             }
         }
         if (GUI.Button(new Rect(630, 400, 130, 20), "AddUltimatePoint", "button"))
         {
             GameManager._GAME_MANAGER.SetChargesUltimate += 1;
+        }
+        if (GUI.Button(new Rect(380, 400, 130, 20), "AddLives", "button"))
+        {
+            GameManager._GAME_MANAGER.Health += 1;
         }
     }
 

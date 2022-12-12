@@ -62,6 +62,15 @@ public partial class @Input : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": ""Press"",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenTreasureRoom"",
+                    ""type"": ""Button"",
+                    ""id"": ""907d95b8-e96a-419c-873b-e852913b0843"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -328,6 +337,28 @@ public partial class @Input : IInputActionCollection2, IDisposable
                     ""action"": ""Ultimate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""393498f4-92c7-4764-8c74-c7495eadcc1c"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenTreasureRoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""619d5b04-1bf0-4dd2-a159-035b1713f227"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenTreasureRoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -340,6 +371,7 @@ public partial class @Input : IInputActionCollection2, IDisposable
         m_Character_Attack = m_Character.FindAction("Attack", throwIfNotFound: true);
         m_Character_PauseMenu = m_Character.FindAction("PauseMenu", throwIfNotFound: true);
         m_Character_Ultimate = m_Character.FindAction("Ultimate", throwIfNotFound: true);
+        m_Character_OpenTreasureRoom = m_Character.FindAction("OpenTreasureRoom", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -403,6 +435,7 @@ public partial class @Input : IInputActionCollection2, IDisposable
     private readonly InputAction m_Character_Attack;
     private readonly InputAction m_Character_PauseMenu;
     private readonly InputAction m_Character_Ultimate;
+    private readonly InputAction m_Character_OpenTreasureRoom;
     public struct CharacterActions
     {
         private @Input m_Wrapper;
@@ -411,6 +444,7 @@ public partial class @Input : IInputActionCollection2, IDisposable
         public InputAction @Attack => m_Wrapper.m_Character_Attack;
         public InputAction @PauseMenu => m_Wrapper.m_Character_PauseMenu;
         public InputAction @Ultimate => m_Wrapper.m_Character_Ultimate;
+        public InputAction @OpenTreasureRoom => m_Wrapper.m_Character_OpenTreasureRoom;
         public InputActionMap Get() { return m_Wrapper.m_Character; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -432,6 +466,9 @@ public partial class @Input : IInputActionCollection2, IDisposable
                 @Ultimate.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnUltimate;
                 @Ultimate.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnUltimate;
                 @Ultimate.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnUltimate;
+                @OpenTreasureRoom.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnOpenTreasureRoom;
+                @OpenTreasureRoom.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnOpenTreasureRoom;
+                @OpenTreasureRoom.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnOpenTreasureRoom;
             }
             m_Wrapper.m_CharacterActionsCallbackInterface = instance;
             if (instance != null)
@@ -448,6 +485,9 @@ public partial class @Input : IInputActionCollection2, IDisposable
                 @Ultimate.started += instance.OnUltimate;
                 @Ultimate.performed += instance.OnUltimate;
                 @Ultimate.canceled += instance.OnUltimate;
+                @OpenTreasureRoom.started += instance.OnOpenTreasureRoom;
+                @OpenTreasureRoom.performed += instance.OnOpenTreasureRoom;
+                @OpenTreasureRoom.canceled += instance.OnOpenTreasureRoom;
             }
         }
     }
@@ -458,5 +498,6 @@ public partial class @Input : IInputActionCollection2, IDisposable
         void OnAttack(InputAction.CallbackContext context);
         void OnPauseMenu(InputAction.CallbackContext context);
         void OnUltimate(InputAction.CallbackContext context);
+        void OnOpenTreasureRoom(InputAction.CallbackContext context);
     }
 }

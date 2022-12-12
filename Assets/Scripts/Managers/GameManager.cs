@@ -1,13 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager _GAME_MANAGER;
     private bool isPaused = false;
-    
 
     //Funciones para upgradear las stats
     [SerializeField] private float timeToDestroyBullet;
@@ -18,7 +16,13 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private float health = 6;
     [SerializeField] private int maxHealth = 6;
+    [SerializeField] private GameObject impactEffect;
     [SerializeField] private bool isInvincible = false;
+
+    private bool finishTimeToPoison = false;
+
+    private bool inCombat = false;
+
 
     //Una lista de los objetos recogidos
 
@@ -40,7 +44,9 @@ public class GameManager : MonoBehaviour
     public void DamagePlayer(float damage) 
     {
         health -= damage;
-
+        GameObject effectIns = Instantiate(impactEffect, PlayerController.Instance.transform.position, PlayerController.Instance.transform.rotation);
+        Destroy(effectIns, 2f);
+        SoundManager.PlaySound(SoundManager.Sound.PlayerHit, PlayerController.Instance.transform.position);
         if (health <= 0){
             KillPlayer();
         }
@@ -71,5 +77,9 @@ public class GameManager : MonoBehaviour
     public float GetChargesUltimate => ultimateCharges;
     public float SetMaxChargesUltimate { get => maxUltimateCharges; set => maxUltimateCharges = value; }
     public float SetChargesUltimate { get => ultimateCharges; set => ultimateCharges = value; }
+
+    public bool GetFinishTimePoison { get => finishTimeToPoison; set => finishTimeToPoison = value; }
+
+    public bool GetInCombat { get => inCombat; set => inCombat = value; }
 
 }

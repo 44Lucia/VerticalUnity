@@ -2,18 +2,13 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    //Asignarle la localización de respawneo y mover la camara tmb
-    //Next Position
-    //[SerializeField] private Vector3 newPosCamera;
-
-    //Ref player
-    //[SerializeField] private Transform camera;
-
     [SerializeField] Room destinationRoom;
 
     [SerializeField] private Transform newPosPlayer;
 
     private Collider collider;
+
+    [SerializeField] private bool isOpenTreasureDoor;
 
     private void Start()
     {
@@ -32,10 +27,12 @@ public class Door : MonoBehaviour
         RoomManager roomManager = RoomManager.Instance;
 
         //roomManager.ActiveRoom(roomManager.CurrentRoom, false);
-        roomManager.CurrentRoom = destinationRoom;
-        CameraMovement.Instance.UpdatePosition();
-        roomManager.ActiveRoom(destinationRoom, true);
-        PlayerController.Instance.SetPosition(newPosPlayer.position);
+        if (!isOpenTreasureDoor)
+        {
+            CameraMovement.Instance.UpdatePosition();
+            roomManager.SetRoomTo(destinationRoom);
+            PlayerController.Instance.SetPosition(newPosPlayer.position);
+        }
     }
 
    private void OnTriggerEnter(Collider other)
@@ -45,4 +42,6 @@ public class Door : MonoBehaviour
             Debug.Log("uwu");
         }
     }
+
+    public bool SetTreasureDoorState { get => isOpenTreasureDoor; set => isOpenTreasureDoor = value; }
 }

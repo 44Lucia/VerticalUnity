@@ -51,6 +51,7 @@ public class BulletPlayer : MonoBehaviour
             if (collider.CompareTag("Enemy"))
             {
                 Damage();
+                Destroy(gameObject);
             }
         }
     }

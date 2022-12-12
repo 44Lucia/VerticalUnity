@@ -7,6 +7,8 @@ public class AICheerleaderController : Enemy
 {
     private StatesCheerleader currenState;
 
+    [SerializeField] private GameObject deathEffect;
+
     [SerializeField] Transform partToRotate;
     [SerializeField] private float turnSpeed = 10f;
 
@@ -25,6 +27,7 @@ public class AICheerleaderController : Enemy
     {
         base.Start();
 
+        impactEffect = deathEffect;
         obstacleMask = LayerMask.GetMask("Obstacles");
         currenState = StatesCheerleader.IDLE;
         navMeshAgent = GetComponent<NavMeshAgent>();

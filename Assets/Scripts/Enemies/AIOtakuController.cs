@@ -7,11 +7,12 @@ public class AIOtakuController : Enemy
     private StatesOtaku currenState;
 
     private NavMeshAgent navMeshAgent;
+    [SerializeField] private GameObject deathEffect;
     private float startWaitTime = 4;
     private float timeToRotate = 2;
     private float speedWalk = 3;
     private float speedRun = 6;
-    [SerializeField]private float coolDown;
+    
 
     private float viewRadius = 6;
     private float viewAngle = 90;
@@ -29,7 +30,6 @@ public class AIOtakuController : Enemy
     private bool m_PlayerInRange;
     private bool m_PlayerNear;
     private bool m_CaughtPlayer;
-    private bool m_coolDownAttack;
 
     private void Awake()
     {
@@ -44,7 +44,6 @@ public class AIOtakuController : Enemy
         m_playerPositon = Vector3.zero;
         m_CaughtPlayer = false;
         m_PlayerInRange = false;
-        m_coolDownAttack = false;
         m_WaitTime = startWaitTime;
         m_TimeToRotate = timeToRotate;
 
@@ -53,6 +52,7 @@ public class AIOtakuController : Enemy
 
         m_CurrentWaypointIndex = 0;
         coolDown = 2;
+        impactEffect = deathEffect;
 
         navMeshAgent.isStopped = false;
         navMeshAgent.speed = speedWalk;
@@ -75,7 +75,6 @@ public class AIOtakuController : Enemy
                 Attacking();
                 break;
             case StatesOtaku.DEATH:
-                Dying();
                 break;
         }
 
@@ -120,7 +119,7 @@ public class AIOtakuController : Enemy
         m_PlayerNear = false;
         playerLastPosition = Vector3.zero;
 
-        if (!m_coolDownAttack)
+        if (!coolDownAttack)
         {
             Move(speedRun);
             navMeshAgent.SetDestination(m_playerPositon);
@@ -210,16 +209,11 @@ public class AIOtakuController : Enemy
             }
         }
     }
-    private IEnumerator CoolDown()
-    {
-        m_coolDownAttack = true;
-        yield return new WaitForSeconds(coolDown);
-        m_coolDownAttack = false;
-    }
+   
 
     private void Attacking() 
     {
-        if (!m_coolDownAttack)
+        if (!coolDownAttack)
         {
             GameManager._GAME_MANAGER.DamagePlayer(1);
             StartCoroutine(CoolDown());
@@ -229,11 +223,5 @@ public class AIOtakuController : Enemy
         {
             currenState = StatesOtaku.CHASE;
         }
-    }
-
-    private void Dying() 
-    {
-        //Coorutina enlazada con el gamemanager
-        Destroy(this.gameObject);
     }
 }

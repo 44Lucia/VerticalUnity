@@ -9,6 +9,7 @@ public class InputManager : MonoBehaviour
     private Input playerInput;
     public static InputManager _INPUT_MANAGER;
 
+    //PauseMenu
     private UnityEvent scapePressed;
 
     //Movement
@@ -19,6 +20,9 @@ public class InputManager : MonoBehaviour
 
     //Ultimate
     private UnityEvent ultimatePressed;
+
+    //TreasureRoom
+    private UnityEvent treasureDoorPressed;
 
     private void Awake()
     {
@@ -36,12 +40,14 @@ public class InputManager : MonoBehaviour
             playerInput.Character.Attack.performed += ShootAxisUpdate;
             playerInput.Character.PauseMenu.performed += PauseMenuPressedCallback;
             playerInput.Character.Ultimate.performed += UltimateButtonPressedCallback;
+            playerInput.Character.OpenTreasureRoom.performed += OpenTreasurePressedCallback;
             _INPUT_MANAGER = this;
             DontDestroyOnLoad(this);
         }
 
         scapePressed = new UnityEvent();
         ultimatePressed = new UnityEvent();
+        treasureDoorPressed = new UnityEvent();
 
     }
     private void Update()
@@ -69,6 +75,10 @@ public class InputManager : MonoBehaviour
         ultimatePressed.Invoke();
     }
 
+    private void OpenTreasurePressedCallback(InputAction.CallbackContext context) 
+    {
+        treasureDoorPressed.Invoke();
+    }
 
     public void AddListennerToUltimateButton(UnityAction action) 
     { 
@@ -89,6 +99,16 @@ public class InputManager : MonoBehaviour
     public void RemoveListennerToPressScape(UnityAction action)
     {
         scapePressed.RemoveListener(action);
+    }
+
+    public void AddListennerToPressOpenTreasureRoom(UnityAction action)
+    {
+        treasureDoorPressed.AddListener(action);
+    }
+
+    public void RemoveListennerToPressOpenTreasureRoom(UnityAction action)
+    {
+        treasureDoorPressed.RemoveListener(action);
     }
 
     public Vector2 GetMovementButtonPressed() => this.currentMovementInput;

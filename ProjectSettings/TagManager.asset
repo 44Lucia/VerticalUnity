@@ -10,6 +10,8 @@ TagManager:
   - PauseMenu
   - Wall
   - BulletPlayer
+  - Floor
+  - Asteroid
   layers:
   - Default
   - TransparentFX
