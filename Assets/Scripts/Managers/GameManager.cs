@@ -46,7 +46,6 @@ public class GameManager : MonoBehaviour
         health -= damage;
         GameObject effectIns = Instantiate(impactEffect, PlayerController.Instance.transform.position, PlayerController.Instance.transform.rotation);
         Destroy(effectIns, 2f);
-        SoundManager.PlaySound(SoundManager.Sound.PlayerHit, PlayerController.Instance.transform.position);
         if (health <= 0){
             KillPlayer();
         }
