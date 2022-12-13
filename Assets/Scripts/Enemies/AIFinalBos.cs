@@ -9,6 +9,9 @@ public class AIFinalBos : Enemy
     private StatesFinalBos currenState;
 
     private NavMeshAgent navMeshAgent;
+    [SerializeField] private Animator animator;
+
+    private float startTimer;
 
     //Timer para que pase de persecución a a descanso
     private float speedWalk = 3;
@@ -21,6 +24,8 @@ public class AIFinalBos : Enemy
     [SerializeField] private Vector3 center;
     [SerializeField] private Vector3 size;
     [SerializeField] GameObject meteorPrefab;
+    [SerializeField] private float floor = 0.02f;
+    [SerializeField] private GameObject sprite;
     private bool isAttack2;
 
     //Health
@@ -41,13 +46,15 @@ public class AIFinalBos : Enemy
     private void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
-        currenState = StatesFinalBos.ATTACK;
+        currenState = StatesFinalBos.IDLE;
     }
 
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
+
+        animator = GetComponent<Animator>();
 
         lifeBar.SetActive(true);
         playerMask = LayerMask.GetMask("Player");
@@ -74,6 +81,9 @@ public class AIFinalBos : Enemy
 
         switch (currenState) 
         {
+            case StatesFinalBos.IDLE:
+                IldePose();
+                break;
             case StatesFinalBos.TIRED:
                 Tired();
                 if (isAttack2){ MeteorAttack(); }
@@ -94,6 +104,20 @@ public class AIFinalBos : Enemy
         fillValue = health;
         fillValue = fillValue / maxHealth;
         healthBosContainer.GetComponent<Image>().fillAmount = fillValue;
+    }
+
+    private void IldePose() 
+    {
+        startTimer += Time.deltaTime;
+        animator.SetBool("IsStarting", true);
+        coolDownChase = true;
+
+        if (startTimer >= 2.7)
+        {
+            coolDownChase = false;
+            animator.SetBool("IsStarting", false);
+            currenState = StatesFinalBos.ATTACK;
+        }
     }
 
     private void EnviromentView()
@@ -140,7 +164,6 @@ public class AIFinalBos : Enemy
         tiredTime -= Time.deltaTime;
         if (tiredTime <= 0)
         {
-            Debug.Log("cansado");
             currenState = StatesFinalBos.ATTACK;
             coolDownChase = false;
         }
@@ -149,25 +172,39 @@ public class AIFinalBos : Enemy
 
     private void Move(float speed)
     {
+        
         navMeshAgent.isStopped = false;
         navMeshAgent.speed = speed;
     }
 
     private void Stop()
     {
+        animator.SetBool("IsWalking", false);
         navMeshAgent.isStopped = true;
         navMeshAgent.speed = 0;
     }
 
+    private bool isAttacking;
+
     private void MeleeAttack()
     {
-        if (!coolDownChase)
+        if (!coolDownChase && !isAttacking)
         {
-            Debug.Log("buscando");
+            animator.SetBool("IsWalking", true);
+            isAttacking = false;
             Move(speedWalk);
             navMeshAgent.SetDestination(m_playerPositon);
             tiredTime += Time.deltaTime;
+            Debug.Log("walking");
         }
+
+        if (Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position) <= 1f)
+        {
+            Debug.Log("Attacking");
+            isAttacking = true;
+            animator.SetBool("IsWalking", false);
+            animator.SetBool("IsAttacking", true);
+        } else { animator.SetBool("IsAttacking", false); isAttacking = false; }
 
         if (Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position) <= 1f && !coolDownAttack)
         {
@@ -194,8 +231,12 @@ public class AIFinalBos : Enemy
     private void SpawnMeteor() 
     {
         Vector3 pos = center + new Vector3(Random.Range(-size.x / 2, size.x / 2), Random.Range(-size.y / 2, size.y / 2), Random.Range(-size.z / 2, size.z / 2));
+        Vector3 posCircle = new Vector3(pos.x, floor, pos.z);
 
-        Instantiate(meteorPrefab, pos, Quaternion.identity);
+        GameObject gO = Instantiate(sprite);
+        gO.transform.position = posCircle;
+
+        Instantiate(meteorPrefab, pos, Quaternion.identity).GetComponent<AsteroidMovement>().ImpactArea = gO;
     }
 
     private void OnDrawGizmosSelected()

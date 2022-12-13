@@ -7,7 +7,7 @@ public class AICheerleaderController : Enemy
 {
     private StatesCheerleader currenState;
 
-    [SerializeField] private GameObject deathEffect;
+    [SerializeField] private GameObject m_impactEffect;
 
     [SerializeField] Transform partToRotate;
     [SerializeField] private float turnSpeed = 10f;
@@ -27,7 +27,7 @@ public class AICheerleaderController : Enemy
     {
         base.Start();
 
-        impactEffect = deathEffect;
+        impactEffect = m_impactEffect;
         obstacleMask = LayerMask.GetMask("Obstacles");
         currenState = StatesCheerleader.IDLE;
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -44,7 +44,6 @@ public class AICheerleaderController : Enemy
                 Shooting();
                 break;
             case StatesCheerleader.DEATH:
-                Dying();
                 break;
         }      
     }
@@ -54,7 +53,6 @@ public class AICheerleaderController : Enemy
         if (Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position) <= 8f)
         {
             currenState = StatesCheerleader.ATTACK;
-            // DANCE ANIMATION
         }
     }
 
@@ -95,11 +93,5 @@ public class AICheerleaderController : Enemy
                 countdownBetweenFire -= Time.deltaTime;
             }
         }
-    }
-
-    private void Dying()
-    {
-        //Coorutina enlazada con el gamemanager
-        Destroy(this.gameObject);
     }
 }

@@ -8,7 +8,7 @@ public class AIOtakuController : Enemy
 
     private NavMeshAgent navMeshAgent;
     [SerializeField] private GameObject deathEffect;
-    private float startWaitTime = 4;
+    [SerializeField] private float startWaitTime = 4;
     private float timeToRotate = 2;
     private float speedWalk = 3;
     private float speedRun = 6;
@@ -78,8 +78,9 @@ public class AIOtakuController : Enemy
                 break;
         }
 
-        if (Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position) <= 1f)
+        if (Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position) <= 2f)
         {
+            Stop();
             currenState = StatesOtaku.ATTACK;
         }
     }
@@ -219,8 +220,9 @@ public class AIOtakuController : Enemy
             StartCoroutine(CoolDown());
         }
 
-        if (Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position) > 1f)
+        if (Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position) > 2f)
         {
+            Move(speedWalk);
             currenState = StatesOtaku.CHASE;
         }
     }

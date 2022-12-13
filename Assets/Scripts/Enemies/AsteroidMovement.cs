@@ -5,6 +5,7 @@ using UnityEngine;
 public class AsteroidMovement : MonoBehaviour
 {
     [SerializeField] private GameObject impactEffect;
+    private GameObject impactArea;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -13,6 +14,7 @@ public class AsteroidMovement : MonoBehaviour
             GameObject effectIns = Instantiate(impactEffect, transform.position, transform.rotation);
             Destroy(effectIns, 5f);
             Destroy(gameObject);
+            Destroy(impactArea);
         }
         if (other.CompareTag("Player"))
         {
@@ -21,4 +23,7 @@ public class AsteroidMovement : MonoBehaviour
             GameManager._GAME_MANAGER.DamagePlayer(1f);
         }
     }
+
+    public GameObject ImpactArea { get => impactArea; set => impactArea = value; }
+
 }

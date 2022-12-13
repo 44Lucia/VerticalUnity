@@ -1,0 +1,371 @@
+fileFormatVersion: 2
+guid: 85a2874592b04e145be6efe4b2931317
+ModelImporter:
+  serializedVersion: 21202
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: Bone001
+  - first:
+      1: 100002
+    second: Bone002
+  - first:
+      1: 100004
+    second: Bone003
+  - first:
+      1: 100006
+    second: Bone004
+  - first:
+      1: 100008
+    second: Bone005
+  - first:
+      1: 100010
+    second: Bone006
+  - first:
+      1: 100012
+    second: Bone007
+  - first:
+      1: 100014
+    second: Bone008
+  - first:
+      1: 100016
+    second: eye_2
+  - first:
+      1: 100018
+    second: //RootNode
+  - first:
+      1: 100020
+    second: face_eye_goblin
+  - first:
+      1: 100022
+    second: goblin_1
+  - first:
+      1: 100024
+    second: goblin_mother
+  - first:
+      1: 100026
+    second: head_goblin
+  - first:
+      1: 100028
+    second: left_eye_goblin
+  - first:
+      1: 100030
+    second: left_goblin_1
+  - first:
+      1: 100032
+    second: left_goblin_2
+  - first:
+      1: 100034
+    second: left_goblin_3
+  - first:
+      1: 100036
+    second: pumkin_root
+  - first:
+      1: 100038
+    second: right_eye_goblin
+  - first:
+      1: 100040
+    second: right_goblin_1
+  - first:
+      1: 100042
+    second: right_goblin_2
+  - first:
+      1: 100044
+    second: right_goblin_3
+  - first:
+      4: 400000
+    second: Bone001
+  - first:
+      4: 400002
+    second: Bone002
+  - first:
+      4: 400004
+    second: Bone003
+  - first:
+      4: 400006
+    second: Bone004
+  - first:
+      4: 400008
+    second: Bone005
+  - first:
+      4: 400010
+    second: Bone006
+  - first:
+      4: 400012
+    second: Bone007
+  - first:
+      4: 400014
+    second: Bone008
+  - first:
+      4: 400016
+    second: eye_2
+  - first:
+      4: 400018
+    second: //RootNode
+  - first:
+      4: 400020
+    second: face_eye_goblin
+  - first:
+      4: 400022
+    second: goblin_1
+  - first:
+      4: 400024
+    second: goblin_mother
+  - first:
+      4: 400026
+    second: head_goblin
+  - first:
+      4: 400028
+    second: left_eye_goblin
+  - first:
+      4: 400030
+    second: left_goblin_1
+  - first:
+      4: 400032
+    second: left_goblin_2
+  - first:
+      4: 400034
+    second: left_goblin_3
+  - first:
+      4: 400036
+    second: pumkin_root
+  - first:
+      4: 400038
+    second: right_eye_goblin
+  - first:
+      4: 400040
+    second: right_goblin_1
+  - first:
+      4: 400042
+    second: right_goblin_2
+  - first:
+      4: 400044
+    second: right_goblin_3
+  - first:
+      43: 4300000
+    second: eye_2
+  - first:
+      74: 7400000
+    second: Take 001
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      137: 13700000
+    second: eye_2
+  externalObjects: {}
+  materials:
+    materialImportMode: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    rigImportErrors: "Invalid Avatar Rig Configuration. Missing or invalid transform:\n\tRequired
+      human bone 'LeftUpperLeg' not found\n"
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 0
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    nodeNameCollisionStrategy: 0
+    fileIdsGeneration: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 0
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 0
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton:
+    - name: eyebat(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: pumkin_root
+      parentName: eyebat(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_mother
+      parentName: pumkin_root
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 0.39370078, y: 0.39370078, z: 0.39370078}
+    - name: goblin_1
+      parentName: goblin_mother
+      position: {x: -0, y: 22.299345, z: -1.4725729}
+      rotation: {x: 7.1054274e-15, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: left_goblin_1
+      parentName: goblin_1
+      position: {x: -56.658684, y: 31.747751, z: -3.3094792}
+      rotation: {x: 0.000000029802314, y: -0.055029728, z: -0.55428034, w: 0.83050895}
+      scale: {x: 1, y: 1, z: 1}
+    - name: left_goblin_2
+      parentName: left_goblin_1
+      position: {x: -1.5793839, y: -13.84111, z: 1.3741617}
+      rotation: {x: 0.08012822, y: -0.03094842, z: 0.02094674, w: 0.99608386}
+      scale: {x: 1, y: 1, z: 1}
+    - name: left_goblin_3
+      parentName: left_goblin_2
+      position: {x: -4.6288223, y: -9.49106, z: 3.68394}
+      rotation: {x: 0.46902815, y: -0.26345083, z: -0.15425232, w: 0.82874155}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone005
+      parentName: left_goblin_3
+      position: {x: 2.6697502, y: -2.7595139, z: 12.83081}
+      rotation: {x: -0.44433442, y: 0.06570289, z: 0.7529251, w: 0.48099265}
+      scale: {x: 2.5400016, y: 2.5400012, z: 2.540001}
+    - name: Bone006
+      parentName: Bone005
+      position: {x: -4.6915035, y: 0, z: 0}
+      rotation: {x: 0.0097141145, y: 0.42619985, z: -0.019880788, w: 0.9043584}
+      scale: {x: 1, y: 1, z: 1}
+    - name: right_goblin_1
+      parentName: goblin_1
+      position: {x: 56.658684, y: 31.747751, z: -3.3094792}
+      rotation: {x: 0.000000029802314, y: 0.055029728, z: 0.55428034, w: 0.83050895}
+      scale: {x: 1, y: 1, z: 1}
+    - name: right_goblin_2
+      parentName: right_goblin_1
+      position: {x: 1.5793839, y: -13.84111, z: 1.3741617}
+      rotation: {x: 0.08012822, y: 0.03094842, z: -0.02094674, w: 0.99608386}
+      scale: {x: 1, y: 1, z: 1}
+    - name: right_goblin_3
+      parentName: right_goblin_2
+      position: {x: 4.6288223, y: -9.49106, z: 3.68394}
+      rotation: {x: 0.48063028, y: 0.26109436, z: 0.12821557, w: 0.82727575}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone007
+      parentName: right_goblin_3
+      position: {x: -2.1341286, y: -2.3722649, z: 12.8308115}
+      rotation: {x: -0.07883338, y: 0.4782911, z: 0.46368948, w: 0.74163}
+      scale: {x: 2.540001, y: 2.5400014, z: 2.5399992}
+    - name: Bone008
+      parentName: Bone007
+      position: {x: -4.779933, y: 0.0000009536743, z: -0.0000009536743}
+      rotation: {x: -0.009514703, y: 0.41056576, z: 0.020324482, w: 0.9115548}
+      scale: {x: 1, y: 1, z: 1}
+    - name: head_goblin
+      parentName: goblin_1
+      position: {x: -0, y: 19.752886, z: 0.5563472}
+      rotation: {x: -0.0011757268, y: -0.00033645116, z: -0.00000039557492, w: 0.9999993}
+      scale: {x: 1, y: 1, z: 1}
+    - name: right_eye_goblin
+      parentName: head_goblin
+      position: {x: 16.098196, y: 33.558357, z: 31.053097}
+      rotation: {x: 8.511325e-27, y: 9.430756e-14, z: -9.0250724e-14, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: left_eye_goblin
+      parentName: head_goblin
+      position: {x: -14.122107, y: 33.558357, z: 31.053099}
+      rotation: {x: 8.511325e-27, y: 9.430756e-14, z: -9.0250724e-14, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: face_eye_goblin
+      parentName: head_goblin
+      position: {x: -0.0000000022700988, y: 41.03253, z: 21.812124}
+      rotation: {x: 8.511325e-27, y: 9.430756e-14, z: -9.0250724e-14, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone003
+      parentName: head_goblin
+      position: {x: 39.953217, y: 34.606094, z: 0.97070783}
+      rotation: {x: -0.00008540459, y: -0.0012198342, z: 0.9397787, w: -0.34178147}
+      scale: {x: 2.5400002, y: 2.5400002, z: 2.5400004}
+    - name: Bone004
+      parentName: Bone003
+      position: {x: -11.939396, y: -0.0000076293945, z: 0.00000033526067}
+      rotation: {x: -0.000000086887944, y: -9.694888e-15, z: 0.000000029802319, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone001
+      parentName: head_goblin
+      position: {x: -40.11735, y: 36.065193, z: -2.5920582}
+      rotation: {x: 0.0014034102, y: 0.0033143002, z: -0.38990867, w: 0.9208465}
+      scale: {x: 2.540001, y: 2.5400002, z: 2.5400016}
+    - name: Bone002
+      parentName: Bone001
+      position: {x: -11.610947, y: 0.0000019073486, z: 0.00000035762787}
+      rotation: {x: -0.0000000017725614, y: -0.059062343, z: -0.00000002995931, w: 0.9982543}
+      scale: {x: 1, y: 1, z: 1}
+    - name: eye_2
+      parentName: eyebat(Clone)
+      position: {x: -0, y: 23.044739, z: 0.37411642}
+      rotation: {x: 0.00000019949603, y: 0.7071068, z: 0.7071068, w: -0.00000019949603}
+      scale: {x: 3.7468355, y: 3.7468355, z: 3.7468355}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

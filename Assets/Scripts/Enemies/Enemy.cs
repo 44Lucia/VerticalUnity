@@ -9,21 +9,16 @@ public abstract class Enemy : MonoBehaviour
     protected bool coolDownAttack = false;
     protected float coolDown;
 
-    protected MeshRenderer sprite;
     protected GameObject impactEffect;
 
     protected virtual void Start()
     {
         RoomManager.Instance.AddEnemy(this);
-        sprite = GetComponent<MeshRenderer>();
     }
 
     protected virtual void OnDeath() 
     {
         RoomManager roomManager = RoomManager.Instance;
-
-        GameObject effectIns = Instantiate(impactEffect, transform.position, transform.rotation);
-        Destroy(effectIns, 2f);
 
         roomManager.RemoveEnemy(this);
         if (roomManager.GetNumberOfEnemies <= 0){
@@ -51,18 +46,12 @@ public abstract class Enemy : MonoBehaviour
         coolDownAttack = false;
     }
 
-    private IEnumerator FlashRed() 
-    {
-        sprite.material.color = Color.red;
-        yield return new WaitForSeconds(0.2f);
-        sprite.material.color = Color.white;
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("BulletPlayer"))
         {
-            StartCoroutine(FlashRed());
+            GameObject effectIns2 = Instantiate(impactEffect, transform.position, transform.rotation);
+            Destroy(effectIns2, 2f);
             OnHit();
         }
     }
