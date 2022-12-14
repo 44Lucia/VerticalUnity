@@ -60,8 +60,6 @@ public class PlayerController : Singleton<PlayerController>
             aController.playAnimation(ANIMATIONS.Move, 0.0f);
         }
 
-        Debug.Log(GameManager._GAME_MANAGER.SetChargesUltimate);
-
         //Movement
         Move();
         Shooting();
