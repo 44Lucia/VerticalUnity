@@ -602,7 +602,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 516818768606343149}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 12.62, y: 0.0029984713, z: 13.447933}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -681,8 +681,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
   tiredTime: 0
-  center: {x: -25.18, y: 12.8, z: -37.5}
-  size: {x: 14.39, y: 1.07, z: 14.96}
+  center: {x: 48, y: 12.65, z: -93.8}
+  size: {x: 22, y: 1.07, z: 14.96}
   meteorPrefab: {fileID: 6632758051075945296, guid: c0d26bf203e465a49844b357312164fa, type: 3}
   floor: 0.5
   sprite: {fileID: 4297626348507098767, guid: 27b42a628f2541e46b4237b27dc9379f, type: 3}
@@ -698,6 +698,8 @@ MonoBehaviour:
   playerMask:
     serializedVersion: 2
     m_Bits: 0
+  m_onHitClip: {fileID: 8300000, guid: 425bd9dd04a39b241b5d5bbe73137fd3, type: 3}
+  m_roarClip: {fileID: 8300000, guid: 9620769d18637bc44b4353b4e9a630fa, type: 3}
 --- !u!1 &516839166504594799
 GameObject:
   m_ObjectHideFlags: 0

@@ -20,9 +20,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool isInvincible = false;
 
     private bool finishTimeToPoison = false;
-
     private bool inCombat = false;
 
+    [Header("Music")]
+    [SerializeField] AudioClip m_onHitClip;
 
     //Una lista de los objetos recogidos
 
@@ -46,6 +47,9 @@ public class GameManager : MonoBehaviour
         health -= damage;
         GameObject effectIns = Instantiate(impactEffect, PlayerController.Instance.transform.position, PlayerController.Instance.transform.rotation);
         Destroy(effectIns, 2f);
+
+        AudioManager.Instance.UIEffectsAudioSource.PlayOneShot(m_onHitClip);
+
         if (health <= 0){
             KillPlayer();
         }
@@ -58,8 +62,9 @@ public class GameManager : MonoBehaviour
     }
 
     private void KillPlayer() 
-    { 
-        
+    {
+        Time.timeScale = 0;
+        UIManager.Instance.GetLoseUI.SetActive(true);
     }
 
     public void pauseGame(bool isPause)

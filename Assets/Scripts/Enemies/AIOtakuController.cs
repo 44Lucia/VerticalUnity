@@ -10,9 +10,11 @@ public class AIOtakuController : Enemy
     [SerializeField] private GameObject deathEffect;
     [SerializeField] private float startWaitTime = 4;
     private float timeToRotate = 2;
-    private float speedWalk = 3;
-    private float speedRun = 6;
-    
+    [SerializeField] private float speedWalk = 3;
+    [SerializeField] private float speedRun = 6;
+    [SerializeField] private float m_maxHealth = 4;
+    [SerializeField] private float m_health = 4;
+
 
     private float viewRadius = 6;
     private float viewAngle = 90;
@@ -30,6 +32,9 @@ public class AIOtakuController : Enemy
     private bool m_PlayerInRange;
     private bool m_PlayerNear;
     private bool m_CaughtPlayer;
+
+    [Header("Music")]
+    [SerializeField] AudioClip m_onHitClip;
 
     private void Awake()
     {
@@ -50,6 +55,9 @@ public class AIOtakuController : Enemy
         playerMask = LayerMask.GetMask("Player");
         obstacleMask = LayerMask.GetMask("Obstacles");
 
+        health = m_health;
+        maxHealth = m_maxHealth;
+        onHitClip = m_onHitClip;
         m_CurrentWaypointIndex = 0;
         coolDown = 2;
         impactEffect = deathEffect;

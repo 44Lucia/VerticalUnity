@@ -35,6 +35,12 @@ public class AudioManager : Singleton<AudioManager>
         m_audioMixer.SetFloat("MasterVolume", value);
     }
 
+    public void PlayBackgroundMusic(AudioClip p_audioClip)
+    {
+        m_backgroundMusicAudioSource.clip = p_audioClip;
+        m_backgroundMusicAudioSource.Play();
+    }
+
     public void SetEffectsVolumeTo(float p_value)
     {
         float value = m_minValue + (m_maxValue - m_minValue) * p_value;

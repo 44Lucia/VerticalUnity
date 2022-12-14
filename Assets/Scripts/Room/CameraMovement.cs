@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class CameraMovement : Singleton<CameraMovement>
 {
-    //Poner limites en la camara que siga al jugador 
-
-    //Que cambie de posicion y limites cuando cambias de habitación
-
     [SerializeField] private float moveSpeedWhenRoomChange = 100;
 
     protected override void Awake()
@@ -38,7 +34,7 @@ public class CameraMovement : Singleton<CameraMovement>
 
         transform.position += moveSpeedWhenRoomChange * dir * Time.deltaTime;
 
-        //transform.position = targetPos;
+        transform.position = targetPos;
     }
 
     Vector3 GetCameraTargetPosition() 

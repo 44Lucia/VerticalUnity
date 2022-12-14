@@ -3,13 +3,19 @@ using System.Collections;
 
 public abstract class Enemy : MonoBehaviour
 {
-    protected float health = 2;
-    protected float maxHealth = 2;
+    protected float health = 3;
+    protected float maxHealth = 3;
 
     protected bool coolDownAttack = false;
     protected float coolDown;
 
     protected GameObject impactEffect;
+
+    //Tutorial
+    protected GameObject lightOn;
+
+    //Music
+    protected AudioClip onHitClip;
 
     protected virtual void Start()
     {
@@ -28,11 +34,17 @@ public abstract class Enemy : MonoBehaviour
             GameManager._GAME_MANAGER.SetChargesUltimate += 1;
         }
 
+        if (lightOn != null)
+        {
+            lightOn.SetActive(true);
+        }
+
         Destroy(gameObject);
     }
 
     public virtual void OnHit() 
     {
+        AudioManager.Instance.UIEffectsAudioSource.PlayOneShot(onHitClip);
         health--;
         if (health <= 0){
             OnDeath();

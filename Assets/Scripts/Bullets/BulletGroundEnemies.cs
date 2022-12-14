@@ -50,7 +50,7 @@ public class BulletGroundEnemies : MonoBehaviour
 
     private void Damage(Transform enemy) 
     {
-        GameManager._GAME_MANAGER.DamagePlayer(0.5f);
+        GameManager._GAME_MANAGER.DamagePlayer(1f);
     }
 
     private void Explode() 

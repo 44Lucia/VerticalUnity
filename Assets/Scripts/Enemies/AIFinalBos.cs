@@ -43,6 +43,10 @@ public class AIFinalBos : Enemy
     private bool m_PlayerInRange;
     [SerializeField] private LayerMask playerMask;
 
+    [Header("Music")]
+    [SerializeField] AudioClip m_onHitClip;
+    [SerializeField] AudioClip m_roarClip;
+
     private void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -54,6 +58,7 @@ public class AIFinalBos : Enemy
     {
         base.Start();
 
+        AudioManager.Instance.UIEffectsAudioSource.PlayOneShot(m_roarClip);
         animator = GetComponent<Animator>();
 
         lifeBar.SetActive(true);
@@ -61,15 +66,17 @@ public class AIFinalBos : Enemy
         obstacleMask = LayerMask.GetMask("Obstacles");
         m_playerPositon = Vector3.zero;
         m_PlayerInRange = false;
-        coolDownChase = false;
+        coolDownChase = true;
         isAttack2 = false;
         navMeshAgent.isStopped = false;
         navMeshAgent.speed = speedWalk;
 
+        onHitClip = m_onHitClip;
         impactEffect = deathEffect;
         health = m_health;
         maxHealth = m_maxHealth;
 
+        startTimer = 0;
         coolDown = 2;
     }
 

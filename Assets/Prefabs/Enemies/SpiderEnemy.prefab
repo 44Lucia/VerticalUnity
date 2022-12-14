@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3297116630783732232}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.45, z: 0.603}
+  m_LocalPosition: {x: -0.01, y: 1.45, z: 0.603}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -264,7 +264,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5822723512121183628}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 12.85, y: 0.07000001, z: 4.98}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -323,7 +323,7 @@ MonoBehaviour:
   startWaitTime: 2
   timeToRotate: 2
   speedWalk: 3
-  deathEffect: {fileID: 1280141305896002, guid: e473029e4c70ad543a6879b82a732f4f, type: 3}
+  deathEffect: {fileID: 1000010680075956, guid: ada7f552bfa81ef42ac31662615b812d, type: 3}
   waypoints:
   - {fileID: 0}
   - {fileID: 0}
@@ -331,6 +331,7 @@ MonoBehaviour:
   projectileSpawnPoint: {fileID: 3297116630783732235}
   countdownBetweenFire: 0
   fireRate: 0.5
+  m_onHitClip: {fileID: 8300000, guid: 425bd9dd04a39b241b5d5bbe73137fd3, type: 3}
 --- !u!195 &3297116629563481778
 NavMeshAgent:
   m_ObjectHideFlags: 0

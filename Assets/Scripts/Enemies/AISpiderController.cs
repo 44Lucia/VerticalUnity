@@ -25,6 +25,9 @@ public class AISpiderController : Enemy
     private float m_TimeToRotate;
     private bool m_PlayerNear;
 
+    [Header("Music")]
+    [SerializeField] private AudioClip m_onHitClip;
+
     protected override void Start()
     {
         base.Start();
@@ -36,6 +39,7 @@ public class AISpiderController : Enemy
 
         m_CurrentWaypointIndex = 0;
 
+        onHitClip = m_onHitClip;
         impactEffect = deathEffect;
 
         navMeshAgent.isStopped = false;

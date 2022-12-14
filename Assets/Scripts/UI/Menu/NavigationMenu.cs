@@ -125,5 +125,10 @@ public class NavigationMenu : MonoBehaviour
     {
         SceneManager.Instance.LoadScene(1);
     }
+
+    public void GoToExit()
+    {
+        SceneManager.Instance.ExitGame();
+    }
 }
 

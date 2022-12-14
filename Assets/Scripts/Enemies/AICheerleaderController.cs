@@ -23,9 +23,14 @@ public class AICheerleaderController : Enemy
     [SerializeField] private float countdownBetweenFire = 0f;
     [SerializeField] private float fireRate = 2f;
 
+    [Header("Music")]
+    [SerializeField] AudioClip m_onHitClip;
+
     protected override void Start()
     {
         base.Start();
+
+        onHitClip = m_onHitClip;
 
         impactEffect = m_impactEffect;
         obstacleMask = LayerMask.GetMask("Obstacles");

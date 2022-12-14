@@ -10,6 +10,9 @@ public class Door : MonoBehaviour
 
     [SerializeField] private bool isOpenTreasureDoor;
 
+    [Header("Music")]
+    [SerializeField] private AudioClip m_openDoorClip;
+
     private void Start()
     {
         RoomManager.Instance.GetCurrentRoom.AddDoor(this);
@@ -19,6 +22,7 @@ public class Door : MonoBehaviour
     public void OpenDoor() 
     {
         collider.isTrigger = true;
+        AudioManager.Instance.UIEffectsAudioSource.PlayOneShot(m_openDoorClip);
         Debug.Log("puerta abierta");
     }
 
@@ -39,7 +43,6 @@ public class Door : MonoBehaviour
    {
         if (other.CompareTag("Player")){
             GoToNextRoom();
-            Debug.Log("uwu");
         }
     }
 

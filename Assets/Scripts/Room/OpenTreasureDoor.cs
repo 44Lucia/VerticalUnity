@@ -11,6 +11,9 @@ public class OpenTreasureDoor : MonoBehaviour
     [SerializeField] private GameObject impactEffect;
     [SerializeField] private Door treasureDoor;
 
+    [Header("Music")]
+    [SerializeField] AudioClip m_onOpenClip;
+
     [Header("Tutorial")]
     [SerializeField] private GameObject lightObject;
 
@@ -33,6 +36,7 @@ public class OpenTreasureDoor : MonoBehaviour
             if (lightObject != null){
                 lightObject.SetActive(true);
             }
+            AudioManager.Instance.UIEffectsAudioSource.PlayOneShot(m_onOpenClip);
             treasureDoor.SetTreasureDoorState = false;
             anim.SetBool("Activated", true);
             Debug.Log("treasure");

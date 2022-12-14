@@ -61,7 +61,7 @@ public class SceneManager : MonoBehaviour
 
     public void ExitGame()
     {
-        Application.Quit();
+        if (!Application.isEditor) System.Diagnostics.Process.GetCurrentProcess().Kill();
     }
 
     public SCENE Scene { get { return m_currentSceneID; } }

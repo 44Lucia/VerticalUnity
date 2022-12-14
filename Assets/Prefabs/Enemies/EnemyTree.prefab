@@ -492,6 +492,7 @@ MonoBehaviour:
   waypoints:
   - {fileID: 0}
   - {fileID: 0}
+  m_onHitClip: {fileID: 8300000, guid: 425bd9dd04a39b241b5d5bbe73137fd3, type: 3}
 --- !u!1 &3992907903483075016
 GameObject:
   m_ObjectHideFlags: 0

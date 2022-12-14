@@ -44,17 +44,17 @@ public class RoomManager : Singleton<RoomManager>
 
     private void OnGUI()
     {
-        if (GUI.Button(new Rect(520, 400, 100,20), "HitEnemy", "button"))
+        if (GUI.Button(new Rect(520, 900, 100,20), "HitEnemy", "button"))
         {
             for (int i = 0; i < currenEnemies.Count; i++){
                 currenEnemies[i].OnHit();
             }
         }
-        if (GUI.Button(new Rect(630, 400, 130, 20), "AddUltimatePoint", "button"))
+        if (GUI.Button(new Rect(630, 900, 130, 20), "AddUltimatePoint", "button"))
         {
             GameManager._GAME_MANAGER.SetChargesUltimate += 1;
         }
-        if (GUI.Button(new Rect(380, 400, 130, 20), "AddLives", "button"))
+        if (GUI.Button(new Rect(380, 900, 130, 20), "AddLives", "button"))
         {
             GameManager._GAME_MANAGER.Health += 1;
         }

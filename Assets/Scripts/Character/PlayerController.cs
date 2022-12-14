@@ -16,7 +16,6 @@ public class PlayerController : Singleton<PlayerController>
     [Header("PlayerParameters")]
     [SerializeField] private float speed;
     private float normalSpeed;
-    private float gravity = 20f;
 
     [Header("Direction&Velocity")]
     private Vector3 finalVelocity;
@@ -29,7 +28,10 @@ public class PlayerController : Singleton<PlayerController>
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private float countdownBetweenFire = 0f;
     [SerializeField] private float fireRate = 2f;
-    [SerializeField] private bool isShooting = false;
+    private bool isShooting = false;
+
+    [Header("Music")]
+    [SerializeField] AudioClip m_onShootClip;
 
     protected override void Awake()
     {
@@ -42,11 +44,15 @@ public class PlayerController : Singleton<PlayerController>
     {
         input = InputManager._INPUT_MANAGER;
 
+        GameManager._GAME_MANAGER.Health = GameManager._GAME_MANAGER.MaxHealth;
+        GameManager._GAME_MANAGER.SetChargesUltimate = 0;
+
         //Default values movement
         finalVelocity = Vector3.zero;
         if (speed == 0f) { speed = 8f; }
         normalSpeed = 8;
 
+        //Events
         input.AddListennerToUltimateButton(Ultimate);
     }
 
@@ -86,9 +92,8 @@ public class PlayerController : Singleton<PlayerController>
 
     private void Ultimate() 
     {
-        if (GameManager._GAME_MANAGER.GetChargesUltimate == 4)
+        if (GameManager._GAME_MANAGER.GetChargesUltimate >= 4)
         {
-            Debug.Log("Ultimate");
             shield.SetActive(!shield.activeSelf);
             InputManager._INPUT_MANAGER.RemoveListennerToUltimateButton(Ultimate);
             GameManager._GAME_MANAGER.SetChargesUltimate = 0;
@@ -104,10 +109,7 @@ public class PlayerController : Singleton<PlayerController>
     {
         if (countdownBetweenFire <= 0f)
         {
-            if (!aController.isAnimationRunning(ANIMATIONS.Attack))
-            {
-                aController.playAnimation(ANIMATIONS.Attack, 0.0f);
-            }
+            AudioManager.Instance.UIEffectsAudioSource.PlayOneShot(m_onShootClip);
             Instantiate(bulletPrefab, spawnPos.transform.position, transform.rotation);
             countdownBetweenFire = 1f / fireRate;
         }
@@ -121,29 +123,39 @@ public class PlayerController : Singleton<PlayerController>
         {
             transform.rotation = Quaternion.Euler(0f, -90f, 0f);
             InstBullet();
+            aController.playAnimation(ANIMATIONS.Attack, 0.0f);
             isShooting = true;
         }
+        else { isShooting = false; }
 
         //Shoot right
-        else if (input.GetShootButtonPressed().x == 1)
+        if (input.GetShootButtonPressed().x == 1)
         {
             transform.rotation = Quaternion.Euler(0f, 90f, 0f);
             InstBullet();
+            aController.playAnimation(ANIMATIONS.Attack, 0.0f);
+            isShooting = true;
         }
 
         //Shoot down
-        else if (input.GetShootButtonPressed().y == -1) 
+        if (input.GetShootButtonPressed().y == -1) 
         {
             transform.rotation = Quaternion.Euler(0f, 180f, 0f);
             InstBullet();
+            aController.playAnimation(ANIMATIONS.Attack, 0.0f);
+            isShooting = true;
         }
 
         //Shoot up
-        else if (input.GetShootButtonPressed().y == 1)
+        if (input.GetShootButtonPressed().y == 1)
         {
             transform.rotation = Quaternion.Euler(0f, 0f, 0f);
             InstBullet();
+            aController.playAnimation(ANIMATIONS.Attack, 0.0f);
+            isShooting = true;
         }
+
+        if (input.GetShootButtonPressed().y != 1 && input.GetShootButtonPressed().y != -1 && input.GetShootButtonPressed().x != 1 && input.GetShootButtonPressed().x != -1){ isShooting = false; }
     }
 
     public void SetPosition(Vector3 newPos) 

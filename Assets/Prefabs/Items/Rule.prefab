@@ -487,8 +487,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.3085399, y: 0.17700252, z: 1.116539}
-  m_Center: {x: -0.07057834, y: 0.000601843, z: 0.02954483}
+  m_Size: {x: 2.3612747, y: 0.17700252, z: 2.1943016}
+  m_Center: {x: -0.015117645, y: 0.000601843, z: 0.14738274}
 --- !u!114 &900871505867084942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -503,3 +503,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textItem: {fileID: 3016584445891869658}
   impactEffect: {fileID: 100006, guid: 60bc526f4be1e044ab9e46340b82ffb3, type: 3}
+  m_pickItemClip: {fileID: 8300000, guid: ddb470237e9ea384ab5f780d7c6df2c2, type: 3}

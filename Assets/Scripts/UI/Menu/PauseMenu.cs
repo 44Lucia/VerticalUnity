@@ -21,7 +21,6 @@ public class PauseMenu : MonoBehaviour
     {
         if (pauseMenu != null)
         {
-            Debug.Log("wuw");
             pauseMenu.SetActive(true);
             Time.timeScale = 0;
             GameManager._GAME_MANAGER.pauseGame(true);
